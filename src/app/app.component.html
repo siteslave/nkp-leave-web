@@ -6,17 +6,17 @@
 
   <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link" href="#">Dashboard <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/page1">Page 1</a>
+        <a class="nav-link" href="#" routerLink="/page1" routerLinkActive="active">Page 1</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/page2" [queryParams]="{name: 'Angular', version: '12.1.1'}">Page 2</a>
+        <a class="nav-link" href="#" routerLinkActive="active" routerLink="/page2" [queryParams]="{name: 'Angular', version: '12.1.1'}">Page 2</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#" routerLink="/page3/Angular">Page 3</a>
+        <a class="nav-link" href="#" routerLinkActive="active" routerLink="/page3/Angular">Page 3</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Switch account</a>

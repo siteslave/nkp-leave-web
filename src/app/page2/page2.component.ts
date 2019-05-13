@@ -16,6 +16,11 @@ export class Page2Component implements OnInit {
       .subscribe(params => {
         console.log(params);
       });
+
+    //
+    const _params = this.route.snapshot.params;
+    console.log('=========');
+    console.log(_params);
   }
 
   ngOnInit() {

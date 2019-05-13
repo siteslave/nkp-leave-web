@@ -1,3 +1,27 @@
 <p>
   page1 works!
 </p>
+
+
+<button class="btn btn-success" (click)="gotoPage2()">Go to page 2</button>
+<button class="btn btn-primary" (click)="getUsers()">Refresh</button>
+
+
+<table class="table hover">
+  <thead>
+  <tr>
+    <th>Image</th>
+    <th>Fullname</th>
+    <th>Email</th>
+    <th>Street</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of users">
+    <td><img [src]="item.picture.thumbnail" class="img-thumbnail"></td>
+    <td>{{item.name.title}}{{item.name.first}} {{item.name.last}}</td>
+    <td>{{item.email}}</td>
+    <td>{{item.location.street}}</td>
+  </tr>
+  </tbody>
+</table>
