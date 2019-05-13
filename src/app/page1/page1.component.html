@@ -5,7 +5,21 @@
 
 <button class="btn btn-success" (click)="gotoPage2()">Go to page 2</button>
 <button class="btn btn-primary" (click)="getUsers()">Refresh</button>
+<button class="btn btn-danger" (click)="openModal()">Open Modal</button>
 
+<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input class="form-control" placeholder="yyyy-mm-dd"
+             name="dp" [(ngModel)]="currentDate" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+          <span class="mdi mdi-calendar"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
 
 <table class="table hover">
   <thead>
@@ -25,3 +39,5 @@
   </tr>
   </tbody>
 </table>
+
+<app-alert #modalAlert></app-alert>

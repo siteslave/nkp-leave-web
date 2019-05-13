@@ -12,6 +12,15 @@ import { Page3Component } from './page3/page3.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './api.service';
+import { FormsModule } from '@angular/forms';
+
+import { LOCALE_ID } from '@angular/core';
+
+import { registerLocaleData } from '@angular/common';
+import localeTh from '@angular/common/locales/th';
+import { SharedModule } from './shared/shared.module';
+
+registerLocaleData(localeTh, 'th');
 
 @NgModule({
   declarations: [
@@ -23,11 +32,16 @@ import { ApiService } from './api.service';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    NgbModule.forRoot()
+    NgbModule,
+    SharedModule
   ],
-  providers: [ApiService],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'th' },
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
