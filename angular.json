@@ -26,6 +26,9 @@
               {
                 "input": "./node_modules/bootstrap/dist/css/bootstrap.css"
               },
+              {
+                "input": "./node_modules/@mdi/font/css/materialdesignicons.css"
+              },
               "src/styles.css"
             ],
             "scripts": [
