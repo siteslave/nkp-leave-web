@@ -13,6 +13,8 @@ export class EmployeeTypeComponent implements OnInit {
   total = 0;
   pageSize = 2;
 
+  pageSizeItems = [2, 10, 20, 30, 40, 50, 100];
+
   limit = 0;
   offset = 0;
 

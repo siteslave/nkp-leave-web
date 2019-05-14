@@ -8,6 +8,7 @@ import { UsersComponent } from './users/users.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EmployeeTypeComponent } from './employee-type/employee-type.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [LayoutComponent, DepartmentComponent, UsersComponent, EmployeeTypeComponent],
@@ -15,7 +16,8 @@ import { EmployeeTypeComponent } from './employee-type/employee-type.component';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ]
 })
 export class AdminModule { }
