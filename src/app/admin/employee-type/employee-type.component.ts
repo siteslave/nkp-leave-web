@@ -57,4 +57,16 @@ export class EmployeeTypeComponent implements OnInit {
     await this.getEmployeeTypes();
   }
 
+  async doRemove(item: any) {
+    try {
+      const rs: any = await this.employeeTypeService.delete(item.employee_type_id);
+      if (rs.ok) {
+        await this.getEmployeeTypes();
+      } else {
+        alert(rs.error);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }

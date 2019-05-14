@@ -30,7 +30,7 @@
           <button class="btn btn-secondary">
             <span class="mdi mdi-account-edit"></span>
           </button>
-          <button class="btn btn-danger">
+          <button class="btn btn-danger" (click)="doRemove(item)">
             <span class="mdi mdi-account-remove"></span>
           </button>
         </div>
@@ -40,7 +40,7 @@
   </table>
   <div class="row">
     <div class="col-md-1">
-      <select class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+      <select (change)="getEmployeeTypes()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
         <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
       </select>
     </div>

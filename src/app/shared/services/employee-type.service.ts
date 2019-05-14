@@ -14,8 +14,15 @@ export class EmployeeTypeService {
 
   list(limit: number, offset: number) {
     // tslint:disable-next-line:variable-name
-    const _url = `${this.apiUrl}/employee-types?limit=${limit}&offset=${offset}`;
+    const _url = `${ this.apiUrl }/employee-types?limit=${ limit }&offset=${ offset }`;
     return this.httpClient.get(_url)
+      .toPromise();
+  }
+
+  delete(employeeTypeId: any) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${ this.apiUrl }/employee-types/${ employeeTypeId }`;
+    return this.httpClient.delete(_url)
       .toPromise();
   }
 }
