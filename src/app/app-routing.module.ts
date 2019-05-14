@@ -10,7 +10,8 @@ const routes: Routes = [
   {path: 'page2', component: Page2Component},
   {path: 'page3/:name/:version', component: Page3Component},
   {path: '404', component: PageNotFoundComponent},
-  {path: '', component: Page1Component},
+  {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
+  {path: '', redirectTo: 'admin', pathMatch: 'full'},
   {path: '**', redirectTo: '404', pathMatch: 'full'},
 ];
 
