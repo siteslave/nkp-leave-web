@@ -12,9 +12,9 @@ export class DepartmentService {
   ) {
   }
 
-  list() {
+  list(limit: number, offset: number) {
     // tslint:disable-next-line:variable-name
-    const _url = `${this.apiUrl}/departments`;
+    const _url = `${this.apiUrl}/departments?limit=${limit}&offset=${offset}`;
     return this.httpClient.get(_url)
       .toPromise();
   }
