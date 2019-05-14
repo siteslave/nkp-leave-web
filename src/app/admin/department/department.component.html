@@ -9,8 +9,8 @@
 
 </div>
 
-<button class="btn btn-success">
-  <span class="mdi mdi-account-plus"></span>
+<button class="btn btn-success" (click)="openModal()">
+  <span class="mdi mdi-plus"></span>
   เพิ่มรายการ
 </button>
 
@@ -32,7 +32,7 @@
       </td>
       <td>
         <div class="btn-group">
-          <button class="btn btn-secondary">
+          <button class="btn btn-secondary" (click)="openModal(item)">
             <span class="mdi mdi-account-edit"></span>
           </button>
           <button class="btn btn-danger">
@@ -46,3 +46,5 @@
 
   <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
 </div>
+
+<app-modal-new-department (onSave)="onSaveDepartment($event)" #mdlNewDepartment></app-modal-new-department>

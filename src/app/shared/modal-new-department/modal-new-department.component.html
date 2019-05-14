@@ -1,0 +1,35 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เพิ่ม/แก้ไขข้อมูลหน่วยงาน</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+      <div class="form-group">
+        <label for="exampleInputEmail1">ชื่อหน่วยงาน</label>
+        <input type="text" class="form-control" 
+               id="exampleInputEmail1" 
+               aria-describedby="emailHelp"
+               name="departmentName"
+               placeholder="ระบุชื่อหน่วยงาน" [(ngModel)]="departmentName">
+      </div>
+     
+      <div class="form-group form-check">
+        <input type="checkbox" class="form-check-input"
+               id="exampleCheck1"
+               name="isEnabled"
+               [(ngModel)]="isEnabled"
+               [checked]="isEnabled">
+        <label class="form-check-label" for="exampleCheck1">เปิดใช้งาน</label>
+      </div>
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="doSave()">บันทึก</button>
+  </div>
+</ng-template>

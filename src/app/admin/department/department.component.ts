@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DepartmentService } from '../../shared/services/department.service';
+import { ModalNewDepartmentComponent } from '../../shared/modal-new-department/modal-new-department.component';
 
 @Component({
   selector: 'app-department',
@@ -8,10 +9,12 @@ import { DepartmentService } from '../../shared/services/department.service';
 })
 export class DepartmentComponent implements OnInit {
 
+  @ViewChild('mdlNewDepartment') private mdlNewDepartment: ModalNewDepartmentComponent;
+
   items: any = [];
   page: any = 1;
   total = 0;
-  pageSize = 2;
+  pageSize = 10;
 
   limit = 0;
   offset = 0;
@@ -23,6 +26,10 @@ export class DepartmentComponent implements OnInit {
 
   async ngOnInit() {
     await this.getDepartments();
+  }
+
+  openModal(item: any = null) {
+    this.mdlNewDepartment.open(item);
   }
 
   async getDepartments() {
@@ -53,5 +60,13 @@ export class DepartmentComponent implements OnInit {
     console.log(this.offset, this.limit);
 
     await this.getDepartments();
+  }
+
+  onSaveDepartment(event: any) {
+    if (event) {
+      this.getDepartments();
+    } else {
+      console.log('User cancel');
+    }
   }
 }

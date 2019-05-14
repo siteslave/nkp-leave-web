@@ -18,4 +18,24 @@ export class DepartmentService {
     return this.httpClient.get(_url)
       .toPromise();
   }
+
+  create(departmentName: string, isEnabled: string) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${this.apiUrl}/departments`;
+    return this.httpClient.post(_url, {
+      departmentName: departmentName,
+      isEnabled: isEnabled
+    })
+      .toPromise();
+  }
+
+  update(departmentId: any, departmentName: string, isEnabled: string) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${this.apiUrl}/departments/${departmentId}`;
+    return this.httpClient.put(_url, {
+      departmentName: departmentName,
+      isEnabled: isEnabled
+    })
+      .toPromise();
+  }
 }
