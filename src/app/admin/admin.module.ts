@@ -7,9 +7,10 @@ import { DepartmentComponent } from './department/department.component';
 import { UsersComponent } from './users/users.component';
 import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EmployeeTypeComponent } from './employee-type/employee-type.component';
 
 @NgModule({
-  declarations: [LayoutComponent, DepartmentComponent, UsersComponent],
+  declarations: [LayoutComponent, DepartmentComponent, UsersComponent, EmployeeTypeComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

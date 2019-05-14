@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { DepartmentService } from '../../shared/services/department.service';
+import { EmployeeTypeService } from '../../shared/services/employee-type.service';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
+  selector: 'app-employee-type',
+  templateUrl: './employee-type.component.html',
   styles: []
 })
-export class DepartmentComponent implements OnInit {
+export class EmployeeTypeComponent implements OnInit {
 
   items: any = [];
   page: any = 1;
@@ -17,17 +17,17 @@ export class DepartmentComponent implements OnInit {
   offset = 0;
 
   constructor(
-    private departmentService: DepartmentService
+    private employeeTypeService: EmployeeTypeService
   ) {
   }
 
   async ngOnInit() {
-    await this.getDepartments();
+    await this.getEmployeeTypes();
   }
 
-  async getDepartments() {
+  async getEmployeeTypes() {
     try {
-      const rs: any = await this.departmentService.list(this.pageSize, this.offset);
+      const rs: any = await this.employeeTypeService.list(this.pageSize, this.offset);
       if (rs.rows) {
         this.items = rs.rows;
         this.total = rs.total;
@@ -52,6 +52,7 @@ export class DepartmentComponent implements OnInit {
 
     console.log(this.offset, this.limit);
 
-    await this.getDepartments();
+    await this.getEmployeeTypes();
   }
+
 }
