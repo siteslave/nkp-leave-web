@@ -1,0 +1,120 @@
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+
+  <span class="mr-3 mdi mdi-24px mdi-account-group"></span>
+
+  <div class="lh-100">
+    <h6 class="mb-0 text-white lh-100">เจ้าหน้าที่</h6>
+    <small>จัดการข้อมูลเจ้าหน้าที่</small>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn btn-success" (click)="openModal()">
+      <span class="mdi mdi-account-plus"></span>
+      เพิ่มรายการ
+    </button>
+  </div>
+  <div class="col-md-6">
+    <form>
+      <div class="row">
+        <div class="col">
+          <select (change)="getEmployees()" name="employeeTypeId" id="employeeTypeId" [(ngModel)]="employeeTypeId" class="form-control">
+            <option value="">เลือกประเภท</option>
+            <option [value]="item.employee_type_id" *ngFor="let item of employeeTypeItems">{{item.employee_type_name}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <input type="text" name="query" placeholder="ระบุคำค้นหา..." id="query"
+                   class="form-control"
+                   [(ngModel)]="query"
+                   (keyup)="enterSearch($event)"
+            >
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" id="button-addon2" (click)="doSearch()">
+                <span class="mdi mdi-magnify"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ชื่อ - สกุล</th>
+      <th>ประเภท</th>
+      <th>หน่วยงานหลัก</th>
+      <th>หน่วยงานย่อย</th>
+      <th>USERNAME</th>
+      <th style="width: 100px;">ใช้งาน</th>
+      <th style="width: 100px;">#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="!items.length">
+      <td colspan="7"><h6 class="text-muted">ไม่พบข้อมูล</h6></td>
+    </tr>
+    <tr *ngFor="let item of items">
+      <td>{{item.first_name}} {{item.last_name}}</td>
+      <td>{{item.employee_type_name}}</td>
+      <td>{{item.department_name}}</td>
+      <td>{{item.sub_department_name}}</td>
+      <td>{{item.username}}</td>
+      <td>
+        <span class="mdi mdi-check text-success" *ngIf="item.is_enabled === 'Y'"></span>
+        <span class="mdi mdi-close text-danger" *ngIf="item.is_enabled === 'N'"></span>
+      </td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-secondary" (click)="openModal(item)">
+            <span class="mdi mdi-account-edit"></span>
+          </button>
+          <button class="btn btn-danger" (click)="doRemove(item)">
+            <span class="mdi mdi-account-remove"></span>
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-1">
+      <select (change)="getEmployees()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+        <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+    <div class="col-md-6">
+      <select style="width: 200px;" (change)="onChangeDepartment()"
+              name="departmentId"
+              id="departmentId"
+              [(ngModel)]="departmentId"
+              class="form-control float-right">
+        <option value="">เลือกหน่วยงานหลัก</option>
+        <option [value]="item.department_id" *ngFor="let item of departmentItems">{{item.department_name}}</option>
+      </select>
+      <select style="width: 200px;" (change)="getEmployees()"
+              name="subDepartmentId"
+              id="subDepartmentId"
+              [(ngModel)]="subDepartmentId"
+              class="form-control float-right">
+        <option value="">เลือกหน่วยงานย่อย</option>
+        <option [value]="item.sub_department_id" *ngFor="let item of subDepartmentItems">{{item.sub_department_name}}</option>
+      </select>
+    </div>
+  </div>
+
+</div>
+
+<app-modal-new-user #mdlNewUser (onSave)="onSave($event)"></app-modal-new-user>

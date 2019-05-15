@@ -9,9 +9,12 @@ import { AlertService } from './alert.service';
 import { ModalNewEmployeeTypeComponent } from './modal-new-employee-type/modal-new-employee-type.component';
 import { UserService } from './services/user.service';
 import { ModalNewUserComponent } from './modal-new-user/modal-new-user.component';
+import { ModalNewEmployeeComponent } from './modal-new-employee/modal-new-employee.component';
+import { EmployeeService } from './services/employee.service';
+import { SubDepartmentService } from './services/sub-department.service';
 
 @NgModule({
-  declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent, ModalNewUserComponent],
+  declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent, ModalNewUserComponent, ModalNewEmployeeComponent],
   imports: [
     CommonModule,
     FormsModule
@@ -26,7 +29,9 @@ import { ModalNewUserComponent } from './modal-new-user/modal-new-user.component
     DepartmentService,
     EmployeeTypeService,
     AlertService,
-    UserService
+    UserService,
+    EmployeeService,
+    SubDepartmentService
   ]
 })
 export class SharedModule {
