@@ -20,6 +20,7 @@ export class DepartmentComponent implements OnInit {
 
   limit = 0;
   offset = 0;
+  query: any = '';
 
   constructor(
     private departmentService: DepartmentService,
@@ -37,7 +38,7 @@ export class DepartmentComponent implements OnInit {
 
   async getDepartments() {
     try {
-      const rs: any = await this.departmentService.list(this.pageSize, this.offset);
+      const rs: any = await this.departmentService.list(this.query, this.pageSize, this.offset);
       if (rs.rows) {
         this.items = rs.rows;
         this.total = rs.total;
@@ -74,7 +75,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   async doRemove(item: any) {
-    const confirm = await this.alertService.confirm('ยืนยันการลบ', `ต้องการลบ ${item.department_name} ใช่หรือไม่?`);
+    const confirm = await this.alertService.confirm('ยืนยันการลบ', `ต้องการลบ ${ item.department_name } ใช่หรือไม่?`);
     if (confirm) {
       try {
         const rs: any = await this.departmentService.delete(item.department_id);
@@ -87,6 +88,16 @@ export class DepartmentComponent implements OnInit {
       } catch (e) {
         this.alertService.error();
       }
+    }
+  }
+
+  doSearch() {
+    this.getDepartments();
+  }
+
+  enterSearch(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.getDepartments();
     }
   }
 }
