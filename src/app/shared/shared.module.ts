@@ -7,6 +7,7 @@ import { ModalNewDepartmentComponent } from './modal-new-department/modal-new-de
 import { FormsModule } from '@angular/forms';
 import { AlertService } from './alert.service';
 import { ModalNewEmployeeTypeComponent } from './modal-new-employee-type/modal-new-employee-type.component';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent],
@@ -22,7 +23,8 @@ import { ModalNewEmployeeTypeComponent } from './modal-new-employee-type/modal-n
   providers: [
     DepartmentService,
     EmployeeTypeService,
-    AlertService
+    AlertService,
+    UserService
   ]
 })
 export class SharedModule {

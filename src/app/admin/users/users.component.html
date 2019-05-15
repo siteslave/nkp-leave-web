@@ -9,37 +9,88 @@
 
 </div>
 
-<button class="mb-3 btn btn-success">
-  <span class="mdi mdi-account-plus"></span>
-  เพิ่มรายการ
-</button>
-
-<table class="table hover">
-  <thead>
-  <tr>
-    <th>ชื่อ - สกุล</th>
-    <th>หน่วยงาน</th>
-    <th>ประเภท</th>
-    <th>USERNAME</th>
-    <th style="width: 100px;">#</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td>นายสถิตย์ เรียนพิศ</td>
-    <td>ศูนย์ประกันสุขภาพ</td>
-    <td>ลูกจ้างชั่วคราว</td>
-    <td>satit</td>
-    <td>
-      <div class="btn-group">
-        <button class="btn btn-secondary">
-          <span class="mdi mdi-account-edit"></span>
-        </button>
-        <button class="btn btn-danger">
-          <span class="mdi mdi-account-remove"></span>
-        </button>
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn btn-success">
+      <span class="mdi mdi-account-plus"></span>
+      เพิ่มรายการ
+    </button>
+  </div>
+  <div class="col-md-6">
+    <form>
+      <div class="row">
+        <div class="col">
+          <select (change)="getUsers()" name="userType" id="userType" [(ngModel)]="userType" class="form-control">
+            <option value="">เลือกประเภท</option>
+            <option [value]="item" *ngFor="let item of userTypesItems">{{item}}</option>
+          </select>
+        </div>
+        <div class="col">
+          <div class="input-group mb-3">
+            <input type="text" name="query" placeholder="ระบุคำค้นหา..." id="query"
+                   class="form-control"
+                   [(ngModel)]="query"
+                   (keyup)="enterSearch($event)"
+            >
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="button" id="button-addon2" (click)="doSearch()">
+                <span class="mdi mdi-magnify"></span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    </form>
+
+  </div>
+</div>
+
+
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>ชื่อ - สกุล</th>
+      <th>ประเภท</th>
+      <th>USERNAME</th>
+      <th style="width: 100px;">ใช้งาน</th>
+      <th style="width: 100px;">#</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of items">
+      <td>{{item.first_name}} {{item.last_name}}</td>
+      <td>{{item.user_type}}</td>
+      <td>{{item.username}}</td>
+      <td>
+        <span class="mdi mdi-check text-success" *ngIf="item.is_enabled === 'Y'"></span>
+        <span class="mdi mdi-close text-danger" *ngIf="item.is_enabled === 'N'"></span>
+      </td>
+      <td>
+        <div class="btn-group">
+          <button class="btn btn-secondary">
+            <span class="mdi mdi-account-edit"></span>
+          </button>
+          <button class="btn btn-danger">
+            <span class="mdi mdi-account-remove"></span>
+          </button>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-1">
+      <select (change)="getUsers()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+        <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
+
+</div>
+
