@@ -2,6 +2,9 @@ import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/cor
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DepartmentService } from '../services/department.service';
 
+import Swal from 'sweetalert2';
+import { AlertService } from '../alert.service';
+
 @Component({
   selector: 'app-modal-new-department',
   templateUrl: './modal-new-department.component.html',
@@ -17,7 +20,11 @@ export class ModalNewDepartmentComponent implements OnInit {
   item: any;
   departmentId: any;
 
-  constructor(private modalService: NgbModal, private departmentService: DepartmentService) {
+  constructor(
+    private modalService: NgbModal,
+    private departmentService: DepartmentService,
+    private alertService: AlertService
+  ) {
   }
 
   ngOnInit() {
@@ -50,13 +57,16 @@ export class ModalNewDepartmentComponent implements OnInit {
 
         if (rs.ok) {
           this.onSave.emit(true);
+          this.alertService.success();
           this.modalService.dismissAll();
         } else {
-          alert(rs.error);
+          this.alertService.error(rs.error);
         }
       } catch (e) {
-        alert(e.message);
+        this.alertService.error(e.message);
       }
+    } else {
+      this.alertService.error('กรุณาระบุชื่อหน่วยงาน');
     }
 
   }
