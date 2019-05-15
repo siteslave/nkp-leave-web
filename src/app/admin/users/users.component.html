@@ -59,6 +59,9 @@
     </tr>
     </thead>
     <tbody>
+    <tr *ngIf="!items.length">
+      <td colspan="5"><h6 class="text-muted">ไม่พบข้อมูล</h6></td>
+    </tr>
     <tr *ngFor="let item of items">
       <td>{{item.first_name}} {{item.last_name}}</td>
       <td>{{item.user_type}}</td>
