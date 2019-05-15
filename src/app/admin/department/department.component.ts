@@ -15,6 +15,7 @@ export class DepartmentComponent implements OnInit {
   page: any = 1;
   total = 0;
   pageSize = 10;
+  pageSizeItems = [10, 20, 30, 40, 50, 100];
 
   limit = 0;
   offset = 0;

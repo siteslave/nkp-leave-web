@@ -44,7 +44,16 @@
     </tbody>
   </table>
 
-  <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+  <div class="row">
+    <div class="col-md-1">
+      <select (change)="getDepartments()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+        <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
 </div>
 
 <app-modal-new-department (onSave)="onSaveDepartment($event)" #mdlNewDepartment></app-modal-new-department>

@@ -1,3 +1,5 @@
+import * as $ from 'jquery';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 

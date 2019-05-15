@@ -11,9 +11,9 @@ export class EmployeeTypeComponent implements OnInit {
   items: any = [];
   page: any = 1;
   total = 0;
-  pageSize = 2;
+  pageSize = 10;
 
-  pageSizeItems = [2, 10, 20, 30, 40, 50, 100];
+  pageSizeItems = [10, 20, 30, 40, 50, 100];
 
   limit = 0;
   offset = 0;
