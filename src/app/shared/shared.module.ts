@@ -6,16 +6,18 @@ import { EmployeeTypeService } from './services/employee-type.service';
 import { ModalNewDepartmentComponent } from './modal-new-department/modal-new-department.component';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from './alert.service';
+import { ModalNewEmployeeTypeComponent } from './modal-new-employee-type/modal-new-employee-type.component';
 
 @NgModule({
-  declarations: [AlertComponent, ModalNewDepartmentComponent],
+  declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent],
   imports: [
     CommonModule,
     FormsModule
   ],
   exports: [
     AlertComponent,
-    ModalNewDepartmentComponent
+    ModalNewDepartmentComponent,
+    ModalNewEmployeeTypeComponent
   ],
   providers: [
     DepartmentService,

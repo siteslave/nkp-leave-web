@@ -9,8 +9,8 @@
 
 </div>
 
-<button class="btn btn-success">
-  <span class="mdi mdi-account-plus"></span>
+<button class="btn btn-success" (click)="openModal()">
+  <span class="mdi mdi-plus"></span>
   เพิ่มรายการ
 </button>
 
@@ -27,7 +27,7 @@
       <td>{{item.employee_type_name}}</td>
       <td>
         <div class="btn-group">
-          <button class="btn btn-secondary">
+          <button class="btn btn-secondary" (click)="openModal(item)">
             <span class="mdi mdi-account-edit"></span>
           </button>
           <button class="btn btn-danger" (click)="doRemove(item)">
@@ -50,3 +50,5 @@
   </div>
 
 </div>
+
+<app-modal-new-employee-type #mdlNewEmployeeType (onSave)="onSave($event)"></app-modal-new-employee-type>

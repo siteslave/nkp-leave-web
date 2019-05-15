@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeTypeService } from '../../shared/services/employee-type.service';
+import { ModalNewEmployeeTypeComponent } from '../../shared/modal-new-employee-type/modal-new-employee-type.component';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-employee-type',
@@ -7,6 +9,8 @@ import { EmployeeTypeService } from '../../shared/services/employee-type.service
   styles: []
 })
 export class EmployeeTypeComponent implements OnInit {
+
+  @ViewChild('mdlNewEmployeeType') private mdlNewEmployeeType: ModalNewEmployeeTypeComponent;
 
   items: any = [];
   page: any = 1;
@@ -19,7 +23,8 @@ export class EmployeeTypeComponent implements OnInit {
   offset = 0;
 
   constructor(
-    private employeeTypeService: EmployeeTypeService
+    private employeeTypeService: EmployeeTypeService,
+    private alertService: AlertService
   ) {
   }
 
@@ -59,14 +64,30 @@ export class EmployeeTypeComponent implements OnInit {
 
   async doRemove(item: any) {
     try {
-      const rs: any = await this.employeeTypeService.delete(item.employee_type_id);
-      if (rs.ok) {
-        await this.getEmployeeTypes();
-      } else {
-        alert(rs.error);
+      const confirm = await this.alertService.confirm('ยืนยันการลบ', `คุณต้องการลบ ${ item.employee_type_name } ใช่หรือไม่?`);
+      if (confirm) {
+        const rs: any = await this.employeeTypeService.delete(item.employee_type_id);
+        if (rs.ok) {
+          this.alertService.success();
+          await this.getEmployeeTypes();
+        } else {
+          this.alertService.error(rs.error);
+        }
       }
+
     } catch (e) {
       console.log(e);
+      this.alertService.error();
     }
+  }
+
+  onSave(event: any) {
+    if (event) {
+      this.getEmployeeTypes();
+    }
+  }
+
+  openModal(item: any = null) {
+    this.mdlNewEmployeeType.open(item);
   }
 }

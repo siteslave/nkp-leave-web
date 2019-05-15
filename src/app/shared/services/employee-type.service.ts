@@ -25,4 +25,22 @@ export class EmployeeTypeService {
     return this.httpClient.delete(_url)
       .toPromise();
   }
+
+  create(employeeTypeName: string) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${this.apiUrl}/employee-types`;
+    return this.httpClient.post(_url, {
+      employeeTypeName: employeeTypeName,
+    })
+      .toPromise();
+  }
+
+  update(employeeTypeId: any, employeeTypeName: string) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${this.apiUrl}/employee-types/${employeeTypeId}`;
+    return this.httpClient.put(_url, {
+      employeeTypeName: employeeTypeName
+    })
+      .toPromise();
+  }
 }
