@@ -82,4 +82,27 @@ export class UsersComponent implements OnInit {
   openModal(item: any = null) {
     this.mdlNewUser.open(item);
   }
+
+  async doRemove(item: any) {
+    const confirm = await this.alertService.confirm(
+      'ยืนยันการลบ',
+      `ต้องการลบ ${ item.first_name } ${ item.last_name } ใช่หรือไม่?`
+    );
+
+    if (confirm) {
+      try {
+        const rs: any = await this.userService.delete(item.user_id);
+        if (rs.ok) {
+          this.alertService.success();
+          await this.getUsers();
+        } else {
+          this.alertService.error(rs.error);
+        }
+      } catch (e) {
+        console.log(e);
+        this.alertService.error();
+      }
+
+    }
+  }
 }
