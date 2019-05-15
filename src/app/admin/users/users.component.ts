@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../shared/services/user.service';
 import { AlertService } from '../../shared/alert.service';
+import { ModalNewUserComponent } from '../../shared/modal-new-user/modal-new-user.component';
 
 @Component({
   selector: 'app-users',
@@ -8,6 +9,8 @@ import { AlertService } from '../../shared/alert.service';
   styles: []
 })
 export class UsersComponent implements OnInit {
+
+  @ViewChild('mdlNewUser') private mdlNewUser: ModalNewUserComponent;
 
   items: any = [];
   query: any = '';
@@ -68,5 +71,15 @@ export class UsersComponent implements OnInit {
 
   doSearch() {
     this.getUsers();
+  }
+
+  onSave(event: any) {
+    if (event) {
+      this.getUsers();
+    }
+  }
+
+  openModal(item: any = null) {
+    this.mdlNewUser.open(item);
   }
 }
