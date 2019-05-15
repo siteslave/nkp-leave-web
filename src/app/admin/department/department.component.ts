@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DepartmentService } from '../../shared/services/department.service';
 import { ModalNewDepartmentComponent } from '../../shared/modal-new-department/modal-new-department.component';
+import { AlertService } from '../../shared/alert.service';
 
 @Component({
   selector: 'app-department',
@@ -21,7 +22,8 @@ export class DepartmentComponent implements OnInit {
   offset = 0;
 
   constructor(
-    private departmentService: DepartmentService
+    private departmentService: DepartmentService,
+    private alertService: AlertService
   ) {
   }
 
@@ -68,6 +70,23 @@ export class DepartmentComponent implements OnInit {
       this.getDepartments();
     } else {
       console.log('User cancel');
+    }
+  }
+
+  async doRemove(item: any) {
+    const confirm = await this.alertService.confirm('ยืนยันการลบ', `ต้องการลบ ${item.department_name} ใช่หรือไม่?`);
+    if (confirm) {
+      try {
+        const rs: any = await this.departmentService.delete(item.department_id);
+        if (rs.ok) {
+          this.alertService.success();
+          await this.getDepartments();
+        } else {
+          this.alertService.error(rs.error);
+        }
+      } catch (e) {
+        this.alertService.error();
+      }
     }
   }
 }

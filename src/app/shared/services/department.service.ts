@@ -38,4 +38,12 @@ export class DepartmentService {
     })
       .toPromise();
   }
+
+  delete(departmentId: any) {
+    // tslint:disable-next-line:variable-name
+    const _url = `${this.apiUrl}/departments/${departmentId}`;
+    return this.httpClient.delete(_url)
+      .toPromise();
+  }
+
 }

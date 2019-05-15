@@ -37,8 +37,23 @@ export class AlertService {
     });
   }
 
-  confirm() {
+  async confirm(title: string = 'กรุณายืนยัน', text: string = 'ต้องการดำเนินการใช่หรือไม่?') {
+    const confirm = await Swal.fire({
+      title: title,
+      text: text,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก'
+    });
 
+    if (confirm.value) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   warning(message: string = 'กรุณาตรวจสอบ') {
