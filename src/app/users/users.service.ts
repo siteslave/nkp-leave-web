@@ -29,4 +29,9 @@ export class UsersService {
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
+  getLeaveTypes() {
+    const _url = `${ this.apiUrl }/services/users/leave-types`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
 }

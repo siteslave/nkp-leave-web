@@ -6,7 +6,62 @@
     </button>
   </div>
   <div class="modal-body">
-    Hello alert modal!
+    <form>
+      <div class="row mb-3">
+        <div class="col">
+          <label for="leaveTypeId">ประเภทการลา</label>
+          <select name="leaveTypeId" id="leaveTypeId" class="form-control"
+                  [(ngModel)]="leaveTypeId">
+            <option value="">เลือกประเภทการลา</option>
+            <option [value]="item.leave_type_id" *ngFor="let item of leaveTypeItems">
+              {{item.leave_type_name}}
+            </option>
+          </select>
+        </div>
+        <div class="col">
+          <label for="leaveDays">จำนวนวันลา</label>
+          <input type="number" name="leaveDays" [(ngModel)]="leaveDays" id="leaveDays" class="form-control">
+
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col">
+          <div class="form-group">
+            <label for="startDate">ตั้งแต่วันที่</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="วว ดด ปปปป" id="startDate"
+                     name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+                  <span class="mdi mdi-calendar"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="startDate">ถึงวันที่</label>
+            <div class="input-group">
+              <input class="form-control" placeholder="วว ดด ปปป"
+                     name="dp" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
+                  <span class="mdi mdi-calendar"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label for="remark">หมายเหตุการลา</label>
+          <input type="text" name="remark" [(ngModel)]="remark" id="remark" class="form-control">
+        </div>
+      </div>
+    </form>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>

@@ -16,6 +16,7 @@ import { LoginService } from './services/login.service';
 import { AuthGuardService } from './auth-guard.service';
 import { ModalNewLeaveComponent } from './modal-new-leave/modal-new-leave.component';
 import { ThaiDatePipe } from './thai-date.pipe';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ThaiDatePipe } from './thai-date.pipe';
   ],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [
     AlertComponent,
