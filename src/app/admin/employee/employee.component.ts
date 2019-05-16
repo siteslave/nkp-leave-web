@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalNewUserComponent } from '../../shared/modal-new-user/modal-new-user.component';
 import { EmployeeService } from '../../shared/services/employee.service';
 import { AlertService } from '../../shared/alert.service';
 import { EmployeeTypeService } from '../../shared/services/employee-type.service';
 import { DepartmentService } from '../../shared/services/department.service';
 import { SubDepartmentService } from '../../shared/services/sub-department.service';
+import { ModalNewEmployeeComponent } from '../../shared/modal-new-employee/modal-new-employee.component';
 
 @Component({
   selector: 'app-employee',
@@ -13,7 +13,7 @@ import { SubDepartmentService } from '../../shared/services/sub-department.servi
 })
 export class EmployeeComponent implements OnInit {
 
-  @ViewChild('mdlNewUser') private mdlNewUser: ModalNewUserComponent;
+  @ViewChild('mdlNewEmployee') private mdlNewEmployee: ModalNewEmployeeComponent;
 
   items: any = [];
   employeeTypeItems: any = [];
@@ -132,7 +132,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   openModal(item: any = null) {
-    this.mdlNewUser.open(item);
+    this.mdlNewEmployee.open(item);
   }
 
   async doRemove(item: any) {

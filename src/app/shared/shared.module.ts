@@ -23,7 +23,8 @@ import { SubDepartmentService } from './services/sub-department.service';
     AlertComponent,
     ModalNewDepartmentComponent,
     ModalNewEmployeeTypeComponent,
-    ModalNewUserComponent
+    ModalNewUserComponent,
+    ModalNewEmployeeComponent
   ],
   providers: [
     DepartmentService,

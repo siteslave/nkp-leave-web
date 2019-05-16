@@ -1,3 +1,101 @@
-<p>
-  modal-new-employee works!
-</p>
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">เพิ่ม/แก้ไขข้อมูลผู้ใช้งาน</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="userName">ชื่อผู้ใช้งาน</label>
+            <input type="text" class="form-control"
+                   [disabled]="employeeId"
+                   id="userName"
+                   name="userName"
+                   placeholder="ชื่อผู้ใช้งาน" [(ngModel)]="username">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="password">รหัสผ่าน</label>
+            <input type="password" class="form-control"
+                   [disabled]="employeeId"
+                   id="password"
+                   name="password"
+                   placeholder="รหัสผ่าน" [(ngModel)]="password">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="firstName">ชื่อ</label>
+            <input type="text" class="form-control"
+                   id="firstName"
+                   name="firstName"
+                   placeholder="ชื่อ" [(ngModel)]="firstName">
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="lastName">สกุล</label>
+            <input type="text" class="form-control"
+                   id="lastName"
+                   name="lastName"
+                   placeholder="สกุล" [(ngModel)]="lastName">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="departmentId">หน่วยงานหลัก</label>
+            <select (change)="onDepartmentChange()" class="form-control" name="departmentId" id="departmentId" [(ngModel)]="departmentId">
+              <option [value]="item.department_id" *ngFor="let item of departmentItems">{{item.department_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="subDepartmentId">หน่วยงานย่อย</label>
+            <select class="form-control" name="subDepartmentId" id="subDepartmentId" [(ngModel)]="subDepartmentId">
+              <option [value]="item.sub_department_id" *ngFor="let item of subDepartmentItems">{{item.sub_department_name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="employeeTypeId">ประเภทเจ้าหน้าที่</label>
+            <select class="form-control" name="employeeTypeId" id="employeeTypeId" [(ngModel)]="employeeTypeId">
+              <option [value]="item.employee_type_id" *ngFor="let item of employeeTypeItems">{{item.employee_type_name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group form-check">
+            <input type="checkbox" class="form-check-input"
+                   id="exampleCheck1"
+                   name="isEnabled"
+                   [(ngModel)]="isEnabled"
+                   [checked]="isEnabled">
+            <label class="form-check-label" for="exampleCheck1">เปิดใช้งาน</label>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="doSave()">บันทึก</button>
+  </div>
+</ng-template>
