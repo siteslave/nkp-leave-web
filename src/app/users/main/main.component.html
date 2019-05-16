@@ -25,13 +25,18 @@
       <th>วันที่ลา</th>
       <th>จำนวนวัน</th>
       <th>ประเภทการลา</th>
+      <th>ปีงบประมาณ</th>
       <th style="width: 100px;">สถานะ</th>
       <th style="width: 100px;">#</th>
     </tr>
     </thead>
     <tbody>
     <tr *ngFor="let item of items">
-      <td>{{item.department_name}}</td>
+      <td>{{item.start_date | thaiDate}} - {{item.end_date | thaiDate}}</td>
+      <td>{{item.leave_days | number}}</td>
+      <td>{{item.leave_type_name}}</td>
+      <td>{{item.period_name}}</td>
+      <td>{{item.leave_status}}</td>
       <td>
         <span class="mdi mdi-check text-success" *ngIf="item.is_enabled === 'Y'"></span>
         <span class="mdi mdi-close text-danger" *ngIf="item.is_enabled === 'N'"></span>
@@ -52,7 +57,7 @@
 
   <div class="row">
     <div class="col-md-1">
-      <select (change)="getDepartments()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+      <select (change)="getLeaves()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
         <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
       </select>
     </div>

@@ -8,6 +8,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { UsersService } from './users.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [LayoutComponent, MainComponent, ProfileComponent],
@@ -16,7 +18,10 @@ import { FormsModule } from '@angular/forms';
     UsersRoutingModule,
     NgbModule,
     SharedModule,
-    FormsModule
-  ]
+    FormsModule,
+    HttpClientModule
+  ],
+  providers: [UsersService]
 })
-export class UsersModule { }
+export class UsersModule {
+}

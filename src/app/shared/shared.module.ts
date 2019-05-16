@@ -15,9 +15,18 @@ import { SubDepartmentService } from './services/sub-department.service';
 import { LoginService } from './services/login.service';
 import { AuthGuardService } from './auth-guard.service';
 import { ModalNewLeaveComponent } from './modal-new-leave/modal-new-leave.component';
+import { ThaiDatePipe } from './thai-date.pipe';
 
 @NgModule({
-  declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent, ModalNewUserComponent, ModalNewEmployeeComponent, ModalNewLeaveComponent],
+  declarations: [
+    AlertComponent,
+    ModalNewDepartmentComponent,
+    ModalNewEmployeeTypeComponent,
+    ModalNewUserComponent,
+    ModalNewEmployeeComponent,
+    ModalNewLeaveComponent,
+    ThaiDatePipe
+  ],
   imports: [
     CommonModule,
     FormsModule
@@ -28,7 +37,8 @@ import { ModalNewLeaveComponent } from './modal-new-leave/modal-new-leave.compon
     ModalNewEmployeeTypeComponent,
     ModalNewUserComponent,
     ModalNewEmployeeComponent,
-    ModalNewLeaveComponent
+    ModalNewLeaveComponent,
+    ThaiDatePipe
   ],
   providers: [
     DepartmentService,
