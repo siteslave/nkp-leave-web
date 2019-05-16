@@ -19,6 +19,7 @@ import localeTh from '@angular/common/locales/th';
 import { SharedModule } from './shared/shared.module';
 
 import { environment } from '../environments/environment';
+import { LoginModule } from './login/login.module';
 
 registerLocaleData(localeTh, 'th');
 
@@ -36,7 +37,8 @@ registerLocaleData(localeTh, 'th');
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
-    SharedModule
+    SharedModule,
+    LoginModule
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'th'},

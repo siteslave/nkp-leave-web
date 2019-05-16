@@ -12,6 +12,7 @@ import { ModalNewUserComponent } from './modal-new-user/modal-new-user.component
 import { ModalNewEmployeeComponent } from './modal-new-employee/modal-new-employee.component';
 import { EmployeeService } from './services/employee.service';
 import { SubDepartmentService } from './services/sub-department.service';
+import { LoginService } from './services/login.service';
 
 @NgModule({
   declarations: [AlertComponent, ModalNewDepartmentComponent, ModalNewEmployeeTypeComponent, ModalNewUserComponent, ModalNewEmployeeComponent],
@@ -32,7 +33,8 @@ import { SubDepartmentService } from './services/sub-department.service';
     AlertService,
     UserService,
     EmployeeService,
-    SubDepartmentService
+    SubDepartmentService,
+    LoginService
   ]
 })
 export class SharedModule {
