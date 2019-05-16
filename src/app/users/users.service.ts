@@ -25,8 +25,20 @@ export class UsersService {
   }
 
   getLeaves(limit: number, offset: number) {
-    const _url = `${ this.apiUrl }/leaves?limit=${limit}&offset=${offset}`;
+    const _url = `${ this.apiUrl }/leaves?limit=${ limit }&offset=${ offset }`;
     return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
+  create(leaveTypeId: any, startDate: any, endDate: any, leaveDays: number, remark: any) {
+    const _url = `${ this.apiUrl }/leaves`;
+    const body: any = {
+      leaveTypeId: leaveTypeId,
+      startDate: startDate,
+      endDate: endDate,
+      leaveDays: leaveDays,
+      remark: remark
+    };
+    return this.httpClient.post(_url, body, this.httpOptions).toPromise();
   }
 
   getLeaveTypes() {

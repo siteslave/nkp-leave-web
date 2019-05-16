@@ -53,4 +53,10 @@ export class MainComponent implements OnInit {
     this.offset = _offset;
 
   }
+
+  onSave(event: any) {
+    if (event) {
+      this.getLeaves();
+    }
+  }
 }
