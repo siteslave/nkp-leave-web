@@ -11,6 +11,7 @@ const routes: Routes = [
   {path: 'page3/:name/:version', component: Page3Component},
   {path: '404', component: PageNotFoundComponent},
   {path: 'admin', loadChildren: './admin/admin.module#AdminModule'},
+  {path: 'users', loadChildren: './users/users.module#UsersModule'},
   {path: 'login', loadChildren: './login/login.module#LoginModule'},
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', redirectTo: '404', pathMatch: 'full'},

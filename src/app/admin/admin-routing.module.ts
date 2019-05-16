@@ -5,10 +5,12 @@ import { DepartmentComponent } from './department/department.component';
 import { UsersComponent } from './users/users.component';
 import { EmployeeTypeComponent } from './employee-type/employee-type.component';
 import { EmployeeComponent } from './employee/employee.component';
+import { AuthGuardService } from '../shared/auth-guard.service';
 
 const routes: Routes = [
   {
     path: '', component: LayoutComponent,
+    canActivate: [AuthGuardService],
     children: [
       {path: 'department', component: DepartmentComponent}, // /admin/department
       {path: 'employee-type', component: EmployeeTypeComponent}, // /admin/users

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from '../shared/alert.service';
 import { LoginService } from '../shared/services/login.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,6 +10,9 @@ import { LoginService } from '../shared/services/login.service';
   styles: []
 })
 export class LoginComponent implements OnInit {
+
+  jwtHelper = new JwtHelperService();
+
   isUser: any = true;
   isAdmin = false;
 
@@ -16,7 +21,11 @@ export class LoginComponent implements OnInit {
 
   isRemember: any = true;
 
-  constructor(private alertService: AlertService, private loginService: LoginService) {
+  constructor(
+    private alertService: AlertService,
+    private loginService: LoginService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -46,6 +55,20 @@ export class LoginComponent implements OnInit {
           const token = rs.token;
           sessionStorage.setItem('token', token);
 
+          const decodedToken = this.jwtHelper.decodeToken(token);
+
+          console.log(decodedToken);
+
+          if (decodedToken.user_type === 'ADMIN') {
+            this.router.navigate(['/admin']);
+          } else if (decodedToken.user_type === 'MANAGER') {
+            //
+          } else if (decodedToken === 'STAFF') {
+            //
+          } else {
+            // user
+            this.router.navigate(['/users']);
+          }
           if (this.isRemember) {
             localStorage.setItem('username', this.username);
           } else {
