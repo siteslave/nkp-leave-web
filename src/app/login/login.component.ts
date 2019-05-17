@@ -57,12 +57,10 @@ export class LoginComponent implements OnInit {
 
           const decodedToken = this.jwtHelper.decodeToken(token);
 
-          console.log(decodedToken);
-
           if (decodedToken.user_type === 'ADMIN') {
             this.router.navigate(['/admin']);
           } else if (decodedToken.user_type === 'MANAGER') {
-            //
+            this.router.navigate(['/manager']);
           } else if (decodedToken === 'STAFF') {
             //
           } else {

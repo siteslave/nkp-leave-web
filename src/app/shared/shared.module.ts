@@ -17,6 +17,7 @@ import { AuthGuardService } from './auth-guard.service';
 import { ModalNewLeaveComponent } from './modal-new-leave/modal-new-leave.component';
 import { ThaiDatePipe } from './thai-date.pipe';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ManagerGuardService } from './manager-guard.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     EmployeeService,
     SubDepartmentService,
     LoginService,
-    AuthGuardService
+    AuthGuardService,
+    ManagerGuardService
   ]
 })
 export class SharedModule {
