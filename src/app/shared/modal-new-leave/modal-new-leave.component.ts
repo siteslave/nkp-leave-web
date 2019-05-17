@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from '../../users/users.service';
 import { AlertService } from '../alert.service';
+
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-modal-new-leave',
@@ -16,6 +18,7 @@ export class ModalNewLeaveComponent implements OnInit {
   startDate: any;
   endDate: any;
 
+  leaveId: any;
   leaveTypeItems = [];
   leaveTypeId: any;
   remark: any;
@@ -24,7 +27,8 @@ export class ModalNewLeaveComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private userService: UsersService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private calendar: NgbCalendar
   ) {
   }
 
@@ -50,7 +54,10 @@ export class ModalNewLeaveComponent implements OnInit {
 
     if (startDate && endDate && this.leaveTypeId && this.leaveDays) {
       try {
-        const rs: any = await this.userService.create(this.leaveTypeId, startDate, endDate, this.leaveDays, this.remark);
+        const rs: any = this.leaveId ?
+          await this.userService.updateLeaves(this.leaveId, this.leaveTypeId, startDate, endDate, this.leaveDays, this.remark)
+          : await this.userService.createLeaves(this.leaveTypeId, startDate, endDate, this.leaveDays, this.remark);
+
         if (rs.ok) {
           this.alertService.success();
           this.onSave.emit(true);
@@ -67,12 +74,19 @@ export class ModalNewLeaveComponent implements OnInit {
     }
   }
 
-  open() {
-    this.leaveTypeId = null;
-    this.leaveDays = 0;
-    this.startDate = null;
-    this.endDate = null;
-    this.remark = null;
+  open(item: any) {
+    this.leaveId = item ? item.leave_id : null;
+    this.leaveTypeId = item ? item.leave_type_id : null;
+    this.leaveDays = item ? item.leave_days : 0;
+    if (item) {
+      const year = moment(item.start_date).get('year');
+      const month = moment(item.start_date).get('month') + 1;
+      const day = moment(item.start_date).get('day');
+
+      this.startDate = new Date(year, month, day);
+
+    }
+    this.remark = item ? item.remark : null;
 
     this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
       // save

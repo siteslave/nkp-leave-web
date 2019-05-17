@@ -38,15 +38,11 @@
       <td>{{item.period_name}}</td>
       <td>{{item.leave_status}}</td>
       <td>
-        <span class="mdi mdi-check text-success" *ngIf="item.is_enabled === 'Y'"></span>
-        <span class="mdi mdi-close text-danger" *ngIf="item.is_enabled === 'N'"></span>
-      </td>
-      <td>
         <div class="btn-group">
-          <button class="btn btn-secondary" (click)="openModal(item)">
+          <button class="btn btn-secondary" [disabled]="item.leave_status != 'DRAFT'" (click)="openModal(item)">
             <span class="mdi mdi-account-edit"></span>
           </button>
-          <button class="btn btn-danger" (click)="doRemove(item)">
+          <button class="btn btn-danger" [disabled]="item.leave_status != 'DRAFT'" (click)="doRemove(item)">
             <span class="mdi mdi-account-remove"></span>
           </button>
         </div>

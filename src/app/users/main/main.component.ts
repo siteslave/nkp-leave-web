@@ -38,8 +38,8 @@ export class MainComponent implements OnInit {
     }
   }
 
-  openModal() {
-    this.mdlNewLeave.open();
+  openModal(item: any = null) {
+    this.mdlNewLeave.open(item);
   }
 
   onPageChange(event: number) {
@@ -57,6 +57,24 @@ export class MainComponent implements OnInit {
   onSave(event: any) {
     if (event) {
       this.getLeaves();
+    }
+  }
+
+  async doRemove(item: any) {
+    const confirm = await this.alertService.confirm('ยืนยันการลบ', 'คุณต้องการลบรายการนี้ ใช่หรือไม่?');
+    if (confirm) {
+      try {
+        const rs: any = await this.userService.deleteLeave(item.leave_id);
+        if (rs.ok) {
+          this.alertService.success();
+          this.getLeaves();
+        } else {
+          this.alertService.error(rs.error);
+        }
+      } catch (e) {
+        console.log(e);
+        this.alertService.error();
+      }
     }
   }
 }

@@ -29,7 +29,7 @@
           <div class="form-group">
             <label for="startDate">ตั้งแต่วันที่</label>
             <div class="input-group">
-              <input class="form-control" placeholder="วว ดด ปปปป" id="startDate"
+              <input class="form-control" id="startDate"
                      name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
@@ -44,7 +44,7 @@
             <label for="startDate">ถึงวันที่</label>
             <div class="input-group">
               <input class="form-control" placeholder="วว ดด ปปป"
-                     name="dp" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
+                     name="dp2" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
                   <span class="mdi mdi-calendar"></span>
