@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EmployeeTypeService } from '../../shared/services/employee-type.service';
-import { ModalNewEmployeeTypeComponent } from '../../shared/modal-new-employee-type/modal-new-employee-type.component';
 import { AlertService } from '../../shared/alert.service';
+import { ModalNewEmployeeTypeComponent } from '../modals/modal-new-employee-type/modal-new-employee-type.component';
+import { EmployeeTypeService } from '../services/employee-type.service';
 
 @Component({
   selector: 'app-employee-type',
@@ -64,7 +64,7 @@ export class EmployeeTypeComponent implements OnInit {
 
   async doRemove(item: any) {
     try {
-      const confirm = await this.alertService.confirm('ยืนยันการลบ', `คุณต้องการลบ ${ item.employee_type_name } ใช่หรือไม่?`);
+      const confirm = await this.alertService.confirm('ยืนยันการลบ', `คุณต้องการลบ ${item.employee_type_name} ใช่หรือไม่?`);
       if (confirm) {
         const rs: any = await this.employeeTypeService.delete(item.employee_type_id);
         if (rs.ok) {

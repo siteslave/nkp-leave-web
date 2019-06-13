@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService } from '../alert.service';
-import { UserService } from '../services/user.service';
+import { AlertService } from 'src/app/shared/alert.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-modal-new-user',
@@ -44,11 +44,11 @@ export class ModalNewUserComponent implements OnInit {
 
     this.password = '';
 
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then((result) => {
-    }, (reason) => {
-      // this.onSave.emit(false);
-    });
+      }, (reason) => {
+        // this.onSave.emit(false);
+      });
   }
 
   async doSave() {

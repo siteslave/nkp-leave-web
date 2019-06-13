@@ -57,6 +57,10 @@ export class LoginComponent implements OnInit {
 
           const decodedToken = this.jwtHelper.decodeToken(token);
 
+          sessionStorage.setItem('firstName', decodedToken.first_name);
+          sessionStorage.setItem('lastName', decodedToken.last_name);
+          sessionStorage.setItem('periodName', decodedToken.period_name);
+
           if (decodedToken.user_type === 'ADMIN') {
             this.router.navigate(['/admin']);
           } else if (decodedToken.user_type === 'MANAGER') {
@@ -65,7 +69,7 @@ export class LoginComponent implements OnInit {
             //
           } else {
             // user
-            this.router.navigate(['/users']);
+            this.router.navigate(['/employee']);
           }
           if (this.isRemember) {
             localStorage.setItem('username', this.username);

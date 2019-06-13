@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalNewLeaveComponent } from '../../shared/modal-new-leave/modal-new-leave.component';
-import { UsersService } from '../users.service';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { AlertService } from '../../shared/alert.service';
+import { EmployeeService } from '../employee.service';
+import { ModalNewLeaveComponent } from '../modals/modal-new-leave/modal-new-leave.component';
 
 @Component({
   selector: 'app-main',
@@ -18,7 +18,11 @@ export class MainComponent implements OnInit {
   pageSizeItems: any = [10, 20, 30, 40, 50, 100];
   pageSize = 20;
 
-  constructor(private userService: UsersService, private alertService: AlertService) {
+  constructor(
+    private userService: EmployeeService,
+    private alertService: AlertService,
+    @Inject('API_URL') private apiUrl: string
+  ) {
   }
 
   async ngOnInit() {
@@ -76,5 +80,11 @@ export class MainComponent implements OnInit {
         this.alertService.error();
       }
     }
+  }
+
+  print(item: any) {
+    const token = sessionStorage.getItem('token');
+    const url = `${this.apiUrl}/leaves/pdf/${item.leave_id}?token=${token}`;
+    window.open(url, '_blank');
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DepartmentService } from '../../shared/services/department.service';
-import { ModalNewDepartmentComponent } from '../../shared/modal-new-department/modal-new-department.component';
 import { AlertService } from '../../shared/alert.service';
+import { ModalNewDepartmentComponent } from '../modals/modal-new-department/modal-new-department.component';
+import { DepartmentService } from '../services/department.service';
 
 @Component({
   selector: 'app-department',
@@ -75,7 +75,7 @@ export class DepartmentComponent implements OnInit {
   }
 
   async doRemove(item: any) {
-    const confirm = await this.alertService.confirm('ยืนยันการลบ', `ต้องการลบ ${ item.department_name } ใช่หรือไม่?`);
+    const confirm = await this.alertService.confirm('ยืนยันการลบ', `ต้องการลบ ${item.department_name} ใช่หรือไม่?`);
     if (confirm) {
       try {
         const rs: any = await this.departmentService.delete(item.department_id);

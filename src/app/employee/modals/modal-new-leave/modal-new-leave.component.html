@@ -10,8 +10,7 @@
       <div class="row mb-3">
         <div class="col">
           <label for="leaveTypeId">ประเภทการลา</label>
-          <select name="leaveTypeId" id="leaveTypeId" class="form-control"
-                  [(ngModel)]="leaveTypeId">
+          <select name="leaveTypeId" id="leaveTypeId" class="form-control" [(ngModel)]="leaveTypeId">
             <option value="">เลือกประเภทการลา</option>
             <option [value]="item.leave_type_id" *ngFor="let item of leaveTypeItems">
               {{item.leave_type_name}}
@@ -29,8 +28,8 @@
           <div class="form-group">
             <label for="startDate">ตั้งแต่วันที่</label>
             <div class="input-group">
-              <input class="form-control" id="startDate"
-                     name="dp" [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
+              <input class="form-control" id="startDate" readonly style="background-color: white;" name="dp"
+                [(ngModel)]="startDate" ngbDatepicker #d="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
                   <span class="mdi mdi-calendar"></span>
@@ -41,10 +40,10 @@
         </div>
         <div class="col">
           <div class="form-group">
-            <label for="startDate">ถึงวันที่</label>
+            <label for="endDate">ถึงวันที่</label>
             <div class="input-group">
-              <input class="form-control" placeholder="วว ดด ปปป"
-                     name="dp2" [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
+              <input class="form-control" placeholder="วว ดด ปปป" readonly style="background-color: white;" name="dp2"
+                [(ngModel)]="endDate" ngbDatepicker #d1="ngbDatepicker">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary" (click)="d1.toggle()" type="button">
                   <span class="mdi mdi-calendar"></span>

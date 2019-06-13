@@ -1,0 +1,77 @@
+<div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+
+  <span class="mr-3 mdi mdi-24px mdi-account-group"></span>
+
+  <div class="lh-100">
+    <h6 class="mb-0 text-white lh-100">เจ้าหน้าที่</h6>
+    <small>จัดการข้อมูลเจ้าหน้าที่</small>
+  </div>
+
+</div>
+
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="input-group mb-3">
+        <input type="text" name="query" placeholder="ระบุคำค้นหา..." id="query" class="form-control" [(ngModel)]="query"
+          (keyup)="enterSearch($event)">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="button-addon2" (click)="doSearch()">
+            <span class="mdi mdi-magnify"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ชื่อ - สกุล</th>
+        <th>ประเภท</th>
+        <th>หน่วยงานหลัก</th>
+        <th>หน่วยงานย่อย</th>
+        <th style="width: 100px;">ใช้งาน</th>
+        <th style="width: 100px;">#</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="!items.length">
+        <td colspan="7">
+          <h6 class="text-muted">ไม่พบข้อมูล</h6>
+        </td>
+      </tr>
+      <tr *ngFor="let item of items">
+        <td>{{item.first_name}} {{item.last_name}}</td>
+        <td>{{item.employee_type_name}}</td>
+        <td>{{item.department_name}}</td>
+        <td>{{item.sub_department_name}}</td>
+        <td>
+          <span class="mdi mdi-check text-success" *ngIf="item.is_enabled === 'Y'"></span>
+          <span class="mdi mdi-close text-danger" *ngIf="item.is_enabled === 'N'"></span>
+        </td>
+        <td>
+          <div class="btn-group">
+            <button class="btn btn-secondary" (click)="openHistory(item.employee_id)">
+              <span class="mdi mdi-magnify"></span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col-md-1">
+      <select (change)="getEmployees()" class="form-control" name="pageCount" id="pageCount" [(ngModel)]="pageSize">
+        <option [value]="item" *ngFor="let item of pageSizeItems">{{item}}</option>
+      </select>
+    </div>
+    <div class="col-md-5">
+      <ngb-pagination (pageChange)="onPageChange($event)" [collectionSize]="total" [pageSize]="pageSize" [(page)]="page"
+        [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+  </div>
+
+</div>
+
+<app-modal-leave-history #mdlHistory></app-modal-leave-history>

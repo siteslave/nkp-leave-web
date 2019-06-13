@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { EmployeeService } from '../../shared/services/employee.service';
 import { AlertService } from '../../shared/alert.service';
-import { EmployeeTypeService } from '../../shared/services/employee-type.service';
-import { DepartmentService } from '../../shared/services/department.service';
-import { SubDepartmentService } from '../../shared/services/sub-department.service';
-import { ModalNewEmployeeComponent } from '../../shared/modal-new-employee/modal-new-employee.component';
+import { ModalNewEmployeeComponent } from '../modals/modal-new-employee/modal-new-employee.component';
+import { EmployeeService } from '../services/employee.service';
+import { EmployeeTypeService } from '../services/employee-type.service';
+import { DepartmentService } from '../services/department.service';
+import { SubDepartmentService } from '../services/sub-department.service';
 
 @Component({
   selector: 'app-employee',
@@ -138,7 +138,7 @@ export class EmployeeComponent implements OnInit {
   async doRemove(item: any) {
     const confirm = await this.alertService.confirm(
       'ยืนยันการลบ',
-      `ต้องการลบ ${ item.first_name } ${ item.last_name } ใช่หรือไม่?`
+      `ต้องการลบ ${item.first_name} ${item.last_name} ใช่หรือไม่?`
     );
 
     if (confirm) {

@@ -1,0 +1,81 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">ประวัติการลา : <span class="text-danger">{{firstName}}
+        {{lastName}}</span></h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- หน่วยงาน -->
+    <!-- <span class="h6 text-muted">{{departmentName}} - {{subDepartmentName}}</span> -->
+    <ngb-tabset>
+      <ngb-tab>
+        <ng-template ngbTabTitle>ประวัติการลาหยุดราชการ</ng-template>
+        <ng-template ngbTabContent>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ประเภทการลา</th>
+                <th>ระหว่างวันที่</th>
+                <th>จำนวนวัน</th>
+                <!-- <th>ปีงบประมาณ</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!items.length">
+                <td colspan="4"> <span class="text-muted h6">ไม่พบรายการ</span></td>
+              </tr>
+              <tr *ngFor="let item of items">
+                <td>{{item.leave_type_name}}</td>
+                <td>{{item.start_date | thaiDate}} - {{item.end_date | thaiDate}}</td>
+                <td>{{item.leave_days}}</td>
+                <!-- <td>{{item.period_name}}</td> -->
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>จำนวนวันลาคงเหลือ</ng-template>
+        <ng-template ngbTabContent>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>ประเภทการลา</th>
+                <th>สิทธิ์ที่ได้</th>
+                <th>ใช้ไปแล้ว</th>
+                <th>คงเหลือ</th>
+                <th>วันลาล่าสุด</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngIf="!itemsSummary.length">
+                <td colspan="3"> <span class="text-muted h6">ไม่พบรายการ</span></td>
+              </tr>
+              <tr *ngFor="let item of itemsSummary">
+                <td>{{item.leave_type_name}}</td>
+                <td>
+                  <span class="text-muted" *ngIf="item.leave_days_num === 0">ไม่จำกัด</span>
+                  <span *ngIf="item.leave_days_num !== 0">{{item.leave_days_num | number}}</span>
+                </td>
+                <td>{{item.current_leave | number}}</td>
+                <td>
+                  <span class="text-muted" *ngIf="item.leave_days_num === 0">ไม่จำกัด</span>
+                  <span *ngIf="item.leave_days_num !== 0"
+                    [ngClass]="{'text-danger': item.remain_days < 0, 'text-success': item.remain_days >= 0}">{{item.remain_days | number}}</span>
+                </td>
+                <td>{{item.last_leave_day | thaiDate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss()">ปิดหน้าต่าง</button>
+  </div>
+</ng-template>

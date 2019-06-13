@@ -10,7 +10,7 @@ export class ThaiDatePipe implements PipeTransform {
   transform(value: any, args?: any): any {
     if (moment(value).isValid()) {
       const year = moment(value).get('year') + 543;
-      return `${moment(value).locale('th').format('DD MMM ')} ${year}`;
+      return `${moment(value).locale('th').format('D MMM ')} ${year}`;
     } else {
       return '-';
     }

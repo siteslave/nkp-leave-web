@@ -9,9 +9,10 @@ import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ManagerService } from './manager.service';
+import { EmployeeComponent } from './employee/employee.component';
 
 @NgModule({
-  declarations: [LayoutComponent, MainComponent, ProfileComponent],
+  declarations: [LayoutComponent, MainComponent, ProfileComponent, EmployeeComponent],
   imports: [
     CommonModule,
     ManagerRoutingModule,

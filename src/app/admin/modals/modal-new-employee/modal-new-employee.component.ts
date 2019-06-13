@@ -1,10 +1,10 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { DepartmentService } from '../services/department.service';
-import { SubDepartmentService } from '../services/sub-department.service';
-import { EmployeeTypeService } from '../services/employee-type.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { AlertService } from '../alert.service';
-import { EmployeeService } from '../services/employee.service';
+import { DepartmentService } from '../../services/department.service';
+import { SubDepartmentService } from '../../services/sub-department.service';
+import { EmployeeTypeService } from '../../services/employee-type.service';
+import { AlertService } from 'src/app/shared/alert.service';
+import { EmployeeService } from '../../services/employee.service';
 
 @Component({
   selector: 'app-modal-new-employee',
@@ -63,11 +63,11 @@ export class ModalNewEmployeeComponent implements OnInit {
 
     this.password = '';
 
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then((result) => {
-    }, (reason) => {
-      // this.onSave.emit(false);
-    });
+      }, (reason) => {
+        // this.onSave.emit(false);
+      });
   }
 
   async getDepartment() {

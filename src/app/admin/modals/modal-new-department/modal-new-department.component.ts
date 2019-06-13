@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DepartmentService } from '../services/department.service';
-
-import Swal from 'sweetalert2';
-import { AlertService } from '../alert.service';
+import { DepartmentService } from '../../services/department.service';
+import { AlertService } from 'src/app/shared/alert.service';
 
 @Component({
   selector: 'app-modal-new-department',
@@ -35,11 +33,11 @@ export class ModalNewDepartmentComponent implements OnInit {
     this.departmentId = item ? item.department_id : null;
     this.isEnabled = item ? item.is_enabled === 'Y' ? true : false : true;
 
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then((result) => {
-    }, (reason) => {
-      // this.onSave.emit(false);
-    });
+      }, (reason) => {
+        // this.onSave.emit(false);
+      });
   }
 
   async doSave() {

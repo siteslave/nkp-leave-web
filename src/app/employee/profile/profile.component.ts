@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ManagerService } from '../manager.service';
-import { AlertService } from '../../shared/alert.service';
+import { EmployeeService } from '../employee.service';
+import { AlertService } from 'src/app/shared/alert.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,13 +10,17 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+
   username: any;
   firstName: any;
   lastName: any;
   password: any;
+  positionName: any;
+  departmentName: any;
+  subDepartmentName: any;
 
   constructor(
-    private managerService: ManagerService,
+    private managerService: EmployeeService,
     private alertService: AlertService,
     private router: Router
   ) {
@@ -33,6 +37,9 @@ export class ProfileComponent implements OnInit {
         this.username = rs.info.username;
         this.firstName = rs.info.first_name;
         this.lastName = rs.info.last_name;
+        this.positionName = rs.info.position_name;
+        this.departmentName = rs.info.department_name;
+        this.subDepartmentName = rs.info.sub_department_name;
       } else {
         this.alertService.error(rs.error);
       }
@@ -66,4 +73,5 @@ export class ProfileComponent implements OnInit {
       }
     }
   }
+
 }

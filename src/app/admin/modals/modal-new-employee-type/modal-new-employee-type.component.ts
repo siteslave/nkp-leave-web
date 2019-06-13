@@ -1,9 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DepartmentService } from '../services/department.service';
-import { AlertService } from '../alert.service';
-import { EmployeeTypeService } from '../services/employee-type.service';
-
+import { EmployeeTypeService } from '../../services/employee-type.service';
+import { AlertService } from 'src/app/shared/alert.service';
 @Component({
   selector: 'app-modal-new-employee-type',
   templateUrl: './modal-new-employee-type.component.html',
@@ -31,11 +29,11 @@ export class ModalNewEmployeeTypeComponent implements OnInit {
     this.employeeTypeName = item ? item.employee_type_name : null;
     this.employeeTypeId = item ? item.employee_type_id : null;
 
-    this.modalService.open(this.content, {ariaLabelledBy: 'modal-basic-title'})
+    this.modalService.open(this.content, { ariaLabelledBy: 'modal-basic-title' })
       .result.then((result) => {
-    }, (reason) => {
-      // this.onSave.emit(false);
-    });
+      }, (reason) => {
+        // this.onSave.emit(false);
+      });
   }
 
   async doSave() {

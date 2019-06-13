@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from '../../shared/services/user.service';
 import { AlertService } from '../../shared/alert.service';
-import { ModalNewUserComponent } from '../../shared/modal-new-user/modal-new-user.component';
+import { ModalNewUserComponent } from '../modals/modal-new-user/modal-new-user.component';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-users',
@@ -86,7 +86,7 @@ export class UsersComponent implements OnInit {
   async doRemove(item: any) {
     const confirm = await this.alertService.confirm(
       'ยืนยันการลบ',
-      `ต้องการลบ ${ item.first_name } ${ item.last_name } ใช่หรือไม่?`
+      `ต้องการลบ ${item.first_name} ${item.last_name} ใช่หรือไม่?`
     );
 
     if (confirm) {

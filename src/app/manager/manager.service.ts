@@ -24,42 +24,42 @@ export class ManagerService {
   }
 
   getLeaves(limit: number, offset: number, status: any = null) {
-    const _url = `${ this.apiUrl }/services/manager/leaves?limit=${ limit }&offset=${ offset }&status=${status}`;
+    const _url = `${this.apiUrl}/services/manager/leaves?limit=${limit}&offset=${offset}&status=${status}`;
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
-  createLeaves(leaveTypeId: any, startDate: any, endDate: any, leaveDays: number, remark: any) {
-    const _url = `${ this.apiUrl }/services/users/leaves`;
+  getEmployees(query: any, limit: number, offset: number) {
+    const _url = `${this.apiUrl}/services/manager/employees?limit=${limit}&offset=${offset}&query=${query}`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
+  getLeavesAll(limit: number, offset: number, status: any = '') {
+    const _url = `${this.apiUrl}/services/manager/leaves?limit=${limit}&offset=${offset}&status=${status}`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
+  updateStatus(leaveId: any, status: any) {
+    const _url = `${this.apiUrl}/services/manager/leaves/status`;
     const body: any = {
-      leaveTypeId: leaveTypeId,
-      startDate: startDate,
-      endDate: endDate,
-      leaveDays: leaveDays,
-      remark: remark
+      leaveId: leaveId,
+      status: status
     };
     return this.httpClient.post(_url, body, this.httpOptions).toPromise();
   }
 
-  updateLeaves(leaveId: any, leaveTypeId: any, startDate: any, endDate: any, leaveDays: number, remark: any) {
-    const _url = `${ this.apiUrl }/services/users/leaves/${leaveId}`;
-    const body: any = {
-      leaveTypeId: leaveTypeId,
-      startDate: startDate,
-      endDate: endDate,
-      leaveDays: leaveDays,
-      remark: remark
+  updateInfo(firstName: any, lastName: any, password: any = null) {
+    const _url = `${this.apiUrl}/services/manager/info`;
+    const body = {
+      firstName: firstName,
+      lastName: lastName,
+      password: password
     };
     return this.httpClient.put(_url, body, this.httpOptions).toPromise();
   }
 
-  getLeaveTypes() {
-    const _url = `${ this.apiUrl }/services/users/leave-types`;
+  getInfo() {
+    const _url = `${this.apiUrl}/services/manager/info`;
     return this.httpClient.get(_url, this.httpOptions).toPromise();
-  }
-
-  deleteLeave(leaveId: any) {
-    const _url = `${ this.apiUrl }/services/users/leaves/${leaveId}`;
-    return this.httpClient.delete(_url, this.httpOptions).toPromise();
   }
 
 }
