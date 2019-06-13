@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class EmployeeService {
-  
+
   constructor(
     private httpClient: HttpClient,
     @Inject('API_URL') private apiUrl: string
@@ -13,7 +13,7 @@ export class EmployeeService {
   }
 
   list(query: any, employeeTypeId: any, departmentId: any, subDepartmentId: any, limit: number, offset: number) {
-    const _url = `${ this.apiUrl }/employees?query=${ query }&employeeTypeId=${ employeeTypeId }&departmentId=${departmentId}&subDepartmentId=${subDepartmentId}&limit=${ limit }&offset=${ offset }`;
+    const _url = `${this.apiUrl}/employees?query=${query}&employeeTypeId=${employeeTypeId}&departmentId=${departmentId}&subDepartmentId=${subDepartmentId}&limit=${limit}&offset=${offset}`;
     return this.httpClient.get(_url)
       .toPromise();
   }
@@ -26,9 +26,10 @@ export class EmployeeService {
     employeeTypeId: string,
     departmentId: any,
     subDepartmentId: any,
+    positionId: any,
     isEnabled: string
   ) {
-    const _url = `${ this.apiUrl }/employees`;
+    const _url = `${this.apiUrl}/employees`;
     return this.httpClient.post(_url, {
       username: username,
       password: password,
@@ -37,6 +38,7 @@ export class EmployeeService {
       employeeTypeId: employeeTypeId,
       departmentId: departmentId,
       subDepartmentId: subDepartmentId,
+      positionId: positionId,
       isEnabled: isEnabled
     })
       .toPromise();
@@ -49,24 +51,26 @@ export class EmployeeService {
     employeeTypeId: string,
     departmentId: any,
     subDepartmentId: any,
+    positionId: any,
     isEnabled: string
   ) {
-    const _url = `${ this.apiUrl }/employees/${ employeeId }`;
+    const _url = `${this.apiUrl}/employees/${employeeId}`;
     return this.httpClient.put(_url, {
       firstName: firstName,
       lastName: lastName,
       employeeTypeId: employeeTypeId,
       departmentId: departmentId,
       subDepartmentId: subDepartmentId,
+      positionId: positionId,
       isEnabled: isEnabled
     })
       .toPromise();
   }
 
   delete(employeeId: any) {
-    const _url = `${ this.apiUrl }/employees/${ employeeId }`;
+    const _url = `${this.apiUrl}/employees/${employeeId}`;
     return this.httpClient.delete(_url)
       .toPromise();
   }
-  
+
 }

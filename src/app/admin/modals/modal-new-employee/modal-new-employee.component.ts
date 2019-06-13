@@ -5,6 +5,8 @@ import { SubDepartmentService } from '../../services/sub-department.service';
 import { EmployeeTypeService } from '../../services/employee-type.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { EmployeeService } from '../../services/employee.service';
+import { SharedService } from 'src/app/shared/services/shared.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-modal-new-employee',
@@ -21,6 +23,8 @@ export class ModalNewEmployeeComponent implements OnInit {
   subDepartmentItems = [];
   employeeTypeItems = [];
 
+  positions = [];
+
   departmentId: any = '';
   subDepartmentId: any = '';
   employeeTypeId: any = '';
@@ -28,6 +32,8 @@ export class ModalNewEmployeeComponent implements OnInit {
   lastName: any = '';
   username: any = '';
   password: any = '';
+  positionId: any = '';
+
   isEnabled = true;
   employeeId: any;
 
@@ -37,23 +43,25 @@ export class ModalNewEmployeeComponent implements OnInit {
     private subDepartmentService: SubDepartmentService,
     private employeeTypeService: EmployeeTypeService,
     private alertService: AlertService,
-    private employeeService: EmployeeService
+    private employeeService: EmployeeService,
+    private sharedService: SharedService
   ) {
   }
 
   ngOnInit() {
     this.getDepartment();
     this.getEmployeeType();
+    this.getPositions();
   }
 
   open(item: any) {
-    this.firstName = item ? item.first_name : null;
-    this.lastName = item ? item.last_name : null;
-    this.username = item ? item.username : null;
-    this.employeeTypeId = item ? item.employee_type_id : null;
-    this.departmentId = item ? item.department_id : null;
-    this.subDepartmentId = item ? item.sub_department_id : null;
-
+    this.firstName = _.has(item, 'first_name') ? item.first_name : null;
+    this.lastName = _.has(item, 'last_name') ? item.last_name : null;
+    this.username = _.has(item, 'username') ? item.username : null;
+    this.employeeTypeId = _.has(item, 'employee_type_id') ? item.employee_type_id : null;
+    this.departmentId = _.has(item, 'department_id') ? item.department_id : null;
+    this.subDepartmentId = _.has(item, 'sub_department_id') ? item.sub_department_id : null;
+    this.positionId = _.has(item, 'position_id') ? item.position_id : null;
     if (this.departmentId) {
       this.getSubDepartment();
     }
@@ -75,6 +83,19 @@ export class ModalNewEmployeeComponent implements OnInit {
       const rs: any = await this.departmentService.list('', 100, 0);
       if (rs.ok) {
         this.departmentItems = rs.rows;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
+  async getPositions() {
+    try {
+      const rs: any = await this.sharedService.getPositions();
+      if (rs.ok) {
+        this.positions = rs.rows;
+      } else {
+        this.alertService.error(rs.error);
       }
     } catch (e) {
       console.log(e);
@@ -113,9 +134,19 @@ export class ModalNewEmployeeComponent implements OnInit {
     let isError = false;
 
     if (this.employeeId) {
-      isError = !(this.firstName && this.lastName && this.employeeTypeId && this.departmentId && this.subDepartmentId);
+      isError = !(this.firstName && this.lastName &&
+        this.employeeTypeId &&
+        this.departmentId &&
+        this.subDepartmentId &&
+        this.positionId);
     } else {
-      isError = !(this.firstName && this.lastName && this.employeeTypeId && this.username && this.password && this.departmentId && this.subDepartmentId);
+      isError = !(this.firstName && this.lastName &&
+        this.employeeTypeId &&
+        this.username &&
+        this.password &&
+        this.departmentId &&
+        this.subDepartmentId &&
+        this.positionId);
     }
 
     if (!isError) {
@@ -131,6 +162,7 @@ export class ModalNewEmployeeComponent implements OnInit {
             this.employeeTypeId,
             this.departmentId,
             this.subDepartmentId,
+            this.positionId,
             _isEnabled);
         } else {
           rs = await this.employeeService.create(
@@ -141,6 +173,7 @@ export class ModalNewEmployeeComponent implements OnInit {
             this.employeeTypeId,
             this.departmentId,
             this.subDepartmentId,
+            this.positionId,
             _isEnabled
           );
         }
