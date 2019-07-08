@@ -10,7 +10,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ManagerGuardService } from './manager-guard.service';
 import { SharedService } from './services/shared.service';
 import { ModalLeaveHistoryComponent } from './modal-leave-history/modal-leave-history.component';
-import { RegisterService } from './services/register.service';
 
 @NgModule({
   declarations: [
@@ -33,8 +32,7 @@ import { RegisterService } from './services/register.service';
     LoginService,
     AuthGuardService,
     ManagerGuardService,
-    SharedService,
-    RegisterService
+    SharedService
   ]
 })
 export class SharedModule {

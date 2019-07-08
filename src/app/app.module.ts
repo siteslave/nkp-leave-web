@@ -1,3 +1,4 @@
+import { LineModule } from './line/line.module';
 import * as $ from 'jquery';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -21,7 +22,6 @@ import { MomentDateFormatter } from './shared/date-format.service';
 
 import { environment } from '../environments/environment';
 import { LoginModule } from './login/login.module';
-import { RegisterComponent } from './register/register.component';
 
 registerLocaleData(localeTh, 'th');
 
@@ -31,8 +31,7 @@ registerLocaleData(localeTh, 'th');
     Page1Component,
     Page2Component,
     Page3Component,
-    PageNotFoundComponent,
-    RegisterComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +40,8 @@ registerLocaleData(localeTh, 'th');
     AppRoutingModule,
     NgbModule,
     SharedModule,
-    LoginModule
+    LoginModule,
+    LineModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'th' },

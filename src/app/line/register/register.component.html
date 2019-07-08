@@ -1,0 +1,22 @@
+<div class="row" style="padding: 0rem 1rem 0rem 1rem">
+  <div class="col-12 d-flex justify-content-center">
+    <img src="./assets/images/logo.png" alt="logo" style="width: 20%;">
+  </div>
+  <div class="col-12 d-flex justify-content-center" style="padding-bottom: 1rem">
+    ระบบลาราชการ
+  </div>
+  <div class="col-3">Username</div>
+  <div class="col-9">
+    <input type="text" class="form-control" name="username" [(ngModel)]="username" placeholder="username">
+  </div>
+  <div class="col-3">
+    Password
+  </div>
+  <div class="col-9">
+    <input type="password" class="form-control" name="password" [(ngModel)]="password" placeholder="password">
+  </div>
+  <div class="col-12 d-flex justify-content-center" style="margin-top: 1rem">
+    <button class="btn btn-success" [disabled]="isRegister ||!username || !password"
+      (click)="register()">ลงทะเบียน</button>
+  </div>
+</div>
