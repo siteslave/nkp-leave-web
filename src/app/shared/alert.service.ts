@@ -69,4 +69,24 @@ export class AlertService {
       title: message
     });
   }
+
+  async reload(message: string = 'กรุณาตรวจสอบ') {
+    const Toast = await Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: true,
+      confirmButtonColor: 'red',
+      confirmButtonText: '<span class="mdi mdi-restart"></span>'
+    });
+
+    const Fire = await Toast.fire({
+      type: 'warning',
+      title: message
+    });
+    if (Fire.value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

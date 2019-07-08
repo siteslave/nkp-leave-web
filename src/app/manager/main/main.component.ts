@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from '../../shared/alert.service';
 import { ManagerService } from '../manager.service';
 import { ModalLeaveHistoryComponent } from 'src/app/shared/modal-leave-history/modal-leave-history.component';
-
+import { MqttClient } from 'mqtt';
+import * as mqttClient from '../../../../mqtt/mqtt.min.js';
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -30,13 +31,51 @@ export class MainComponent implements OnInit {
     { name: 'ไม่อนุมัติ', value: 'DENIED' }
   ];
   status: any;
-
+  mqttClient: MqttClient;
   constructor(private managerService: ManagerService, private alertService: AlertService) {
   }
 
   async ngOnInit() {
     await this.getDraftLeaves();
     await this.getAllLeaves();
+    await this.connectMqtt();
+    await this.subscribeMqtt();
+    await this.messageMqtt();
+  }
+
+  connectMqtt() {
+    try {
+      this.mqttClient = new mqttClient('mqtt://localhost:8883', {
+        clientId: Math.floor(Math.random() * 10000),
+        username: 'mqtt',
+        password: 'password'
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  subscribeMqtt() {
+    const topic = 'manager/main';
+    const that = this;
+    this.mqttClient.on('connect', () => {
+      that.mqttClient.subscribe(topic, (err) => {
+        if (err) {
+          console.log('Subscribe Error!');
+
+        }
+      });
+    });
+  }
+
+  messageMqtt() {
+    this.mqttClient.on('message', async (topic, payload) => {
+      const reload = await this.alertService.reload();
+      if (reload) {
+        await this.getAllLeaves();
+        await this.getDraftLeaves();
+      }
+    });
   }
 
   async getDraftLeaves() {
