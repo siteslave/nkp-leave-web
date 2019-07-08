@@ -21,6 +21,7 @@ import { MomentDateFormatter } from './shared/date-format.service';
 
 import { environment } from '../environments/environment';
 import { LoginModule } from './login/login.module';
+import { RegisterComponent } from './register/register.component';
 
 registerLocaleData(localeTh, 'th');
 
@@ -30,7 +31,8 @@ registerLocaleData(localeTh, 'th');
     Page1Component,
     Page2Component,
     Page3Component,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
