@@ -31,4 +31,9 @@ export class SharedService {
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
+  getPeriods() {
+    const _url = `${this.apiUrl}/shared/periods`;
+    return this.httpClient.get(_url, this.httpOptions).toPromise();
+  }
+
 }
