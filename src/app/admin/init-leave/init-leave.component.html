@@ -12,18 +12,17 @@
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <div class="row">
     <div class="col-md-8">
+      <span class="text-danger">ปีงบประมาณปัจจุบัน : {{currentPeriodName}}</span>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">เลือกปีงบประมาณ</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01">
+        <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="periodId">
           <option selected>เลือก...</option>
-          <option value="1">ปีงบประมาณ 2562</option>
-          <option value="2">ปีงบประมาณ 2563</option>
-          <option value="3">ปีงบประมาณ 2564</option>
+          <option [value]="item.period_id" *ngFor="let item of periods">{{item.period_name}}</option>
         </select>
         <div class="input-group-append">
-          <button class="btn btn-success" type="button">สร้างวันลาสำหรับปีงบประมาณ</button>
+          <button class="btn btn-success" type="button" (click)="doProcess()">สร้างวันลาสำหรับปีงบประมาณ</button>
         </div>
       </div>
     </div>

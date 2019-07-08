@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('firstName', decodedToken.first_name);
           sessionStorage.setItem('lastName', decodedToken.last_name);
           sessionStorage.setItem('periodName', decodedToken.period_name);
+          sessionStorage.setItem('periodId', decodedToken.period_id);
 
           if (decodedToken.user_type === 'ADMIN') {
             this.router.navigate(['/admin']);
