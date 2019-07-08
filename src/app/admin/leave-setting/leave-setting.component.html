@@ -3,27 +3,36 @@
   <span class="mr-3 mdi mdi-24px mdi-account-group"></span>
 
   <div class="lh-100">
-    <h6 class="mb-0 text-white lh-100">ประมวลผลวันลา</h6>
-    <small>กำหนดวันลาใหม่/โอนวันลาระหว่างปีงบประมาณ</small>
+    <h6 class="mb-0 text-white lh-100">กำหนดค่าการลา</h6>
+    <small>กำหนดค่าการลาในปีงบประมาณ</small>
   </div>
 
 </div>
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
-  <form action="#" class="form-inline">
-    <label for="slPeriods">ปีงบประมาณ</label> &nbsp;&nbsp;
-    <select name="slPeriods" (change)="setPeriod()" id="slPeriods" [(ngModel)]="currentPeriodId"
-      class="mb-2 form-control">
-      <option value="">เลือกปีงบประมาณ</option>
-      <option [value]="item.period_id" *ngFor="let item of periods">
-        {{item.period_name}}
-      </option>
-    </select>
-  </form>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
 
+      <form action="#">
+        <label for="slPeriods">ปีงบประมาณ</label> &nbsp;&nbsp;
+        <select name="slPeriods" (change)="setPeriod()" id="slPeriods" [(ngModel)]="currentPeriodId"
+          class="mb-2 form-control">
+          <option value="">เลือกปีงบประมาณ</option>
+          <option [value]="item.period_id" *ngFor="let item of periods">
+            {{item.period_name}}
+          </option>
+        </select>
+        <label for="">ประเภทเจ้าหน้าที่</label>
+        <select name="slType" (change)="getSetting()" [(ngModel)]="employeeTypeId" id="slType"
+          class="form-control mb-2">
+          <option value="">เลือกประเภทเจ้าหน้าที่</option>
+          <option [value]="item.employee_type_id" *ngFor="let item of employeeTypes">{{item.employee_type_name}}
+          </option>
+        </select>
+      </form>
+
+      <!-- 
       <table class="table table-hover">
         <thead>
           <tr>
@@ -40,52 +49,48 @@
           </tr>
           <tr *ngFor="let item of employeeTypes">
             <td>{{item.employee_type_name}}</td>
-            <td><button class="btn btn-secondary">แก้ไข</button></td>
+            <td><button class="btn btn-secondary" (click)="getSetting(item)">แก้ไข</button></td>
           </tr>
         </tbody>
 
-      </table>
+      </table> -->
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <table class="table table-hover">
         <thead>
           <tr>
-            <th colspan="4">พนักงานราชการ</th>
+            <th colspan="4">ประเภท : {{employeeTypeName || 'ไม่ระบุ'}}</th>
           </tr>
           <tr>
             <th>ประเภทการลา</th>
             <th>สิทธิ์ในการลา (วัน)</th>
             <th>สะสม</th>
-            <th>ไม่เกิน (วัน)</th>
+            <th>สะสมไม่เกิน (วัน)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngIf="!choices.length">
             <td colspan="4">ไม่พบรายการ</td>
           </tr>
-          <tr>
-            <td>ลาพักผ่อน</td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
-            <td style="text-align: center;"><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
+          <tr *ngFor="let item of choices">
+            <td>{{item.leave_type_name}}</td>
+            <td><input type="text" appNumberOnly #leaveDays
+                (keyup)="onChangeLeaveDays(item.leave_type_id, leaveDays.value)" [value]="item.leave_days || 0"
+                style="width: 80px; text-align: center;" class="form-control"></td>
+            <td style="text-align: center;">
+              <input type="checkbox" #isCollect (change)="onChangeIsCollect(item.leave_type_id, isCollect.checked)"
+                [checked]="item.is_collect === 'Y'" class="form-check-input">
+            </td>
+            <td><input type="text" #maxLeaveDays (keyup)="onChangeMaxLeaveDays(item.leave_type_id, maxLeaveDays.value)"
+                appNumberOnly [value]="item.max_leave_days || 0" style="width: 80px; text-align: center;"
+                class="form-control"></td>
           </tr>
-          <tr>
-            <td>ลากิจ</td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
-            <td style="text-align: center;"><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
-          </tr>
-          <tr>
-            <td>ลาป่วย</td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
-            <td style="text-align: center;"><input type="checkbox" class="form-check-input" id="exampleCheck1"></td>
-            <td><input type="number" style="width: 80px; text-align: center;" class="form-control"></td>
-          </tr>
+
         </tbody>
         <tfoot>
           <tr>
             <td colspan="4">
-              <button class="btn btn-success">
+              <button class="btn btn-success" (click)="saveSetting()" [disabled]="!currentPeriodId || !employeeTypeId">
                 บันทึก
               </button>
               <span class="float-right text-muted">0 = ไม่จำกัด</span>

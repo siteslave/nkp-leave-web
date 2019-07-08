@@ -10,11 +10,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ManagerGuardService } from './manager-guard.service';
 import { SharedService } from './services/shared.service';
 import { ModalLeaveHistoryComponent } from './modal-leave-history/modal-leave-history.component';
+import { NumberOnlyDirective } from './number-only.directive';
 
 @NgModule({
   declarations: [
     AlertComponent,
     ThaiDatePipe,
+    NumberOnlyDirective,
     ModalLeaveHistoryComponent
   ],
   imports: [
@@ -25,6 +27,7 @@ import { ModalLeaveHistoryComponent } from './modal-leave-history/modal-leave-hi
   exports: [
     AlertComponent,
     ThaiDatePipe,
+    NumberOnlyDirective,
     ModalLeaveHistoryComponent
   ],
   providers: [
