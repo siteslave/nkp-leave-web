@@ -90,7 +90,7 @@ export class DashboardComponent implements OnInit {
   }
 
   async createPie(data: any[]) {
-    let pieOptions = {
+    let pieOptions: any = {
       chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
