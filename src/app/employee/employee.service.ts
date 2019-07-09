@@ -78,4 +78,30 @@ export class EmployeeService {
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
+  uploadFile(files: File) {
+    return new Promise((resolve, reject) => {
+      const formData: any = new FormData();
+      const xhr = new XMLHttpRequest();
+
+      if (files) {
+        formData.append("files", files, files.name);
+      }
+
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState === 4) {
+          if (xhr.status === 200) {
+            resolve(JSON.parse(xhr.response));
+          } else {
+            reject(xhr.response);
+          }
+        }
+      };
+
+      const token = sessionStorage.getItem('token');
+      const _url = `${this.apiUrl}/services/employees/uploads?token=${token}`;
+      xhr.open("POST", _url, true);
+      xhr.send(formData);
+    });
+  }
+
 }

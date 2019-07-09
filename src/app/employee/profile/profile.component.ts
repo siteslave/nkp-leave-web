@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, NgZone } from '@angular/core';
 import { EmployeeService } from '../employee.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+  imageUrl: any;
 
   username: any;
   firstName: any;
@@ -19,20 +21,63 @@ export class ProfileComponent implements OnInit {
   departmentName: any;
   subDepartmentName: any;
 
+  fileName: any;
+  filesToUpload: File;
+
   constructor(
-    private managerService: EmployeeService,
+    private employeeService: EmployeeService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    @Inject('API_URL') private apiUrl: string,
+    private zone: NgZone
   ) {
+    const token = sessionStorage.getItem('token');
+    this.imageUrl = `${this.apiUrl}/services/employees/image?token=${token}`;
   }
 
   async ngOnInit() {
     await this.getInfo();
   }
 
+  async fileChangeEvent(fileInput: any) {
+    console.log(fileInput);
+
+    this.filesToUpload = null;
+    this.filesToUpload = <File>fileInput.target.files[0];
+    if (this.filesToUpload) {
+      this.fileName = fileInput.target.files[0].name;
+      const confirm = await this.alertService.confirm('อัปโหลดไฟล์', `อัปโหลดไฟล์ ${this.fileName} ใช่หรือไม่?`);
+      if (confirm) {
+        this._doUpload();
+      }
+    }
+  }
+
+  async _doUpload() {
+    try {
+      const rs: any = await this.employeeService.uploadFile(this.filesToUpload);
+      if (rs.ok) {
+        this.alertService.success();
+        // this.imageUrl = null;
+        const rnd = moment().format('x');
+        const token = sessionStorage.getItem('token');
+        this.imageUrl = `${this.apiUrl}/services/employees/image?token=${token}&rnd=${rnd}`;
+        // this.zone.run(() => {
+          
+        // });
+
+      } else {
+        this.alertService.error(rs.error);
+      }
+    } catch (error) {
+      console.log(error);
+      this.alertService.error();
+    }
+  }
+
   async getInfo() {
     try {
-      const rs: any = await this.managerService.getInfo();
+      const rs: any = await this.employeeService.getInfo();
       if (rs.ok) {
         this.username = rs.info.username;
         this.firstName = rs.info.first_name;
@@ -52,7 +97,7 @@ export class ProfileComponent implements OnInit {
   async save() {
     if (this.firstName && this.lastName) {
       try {
-        const rs: any = await this.managerService.updateInfo(this.firstName, this.lastName, this.password);
+        const rs: any = await this.employeeService.updateInfo(this.firstName, this.lastName, this.password);
         if (rs.ok) {
           this.alertService.success();
           const confirm = await this.alertService.confirm('เข้าสู่ระบบใหม่', 'ต้องการเข้าสู่ระบใหม่หรือไม่?');

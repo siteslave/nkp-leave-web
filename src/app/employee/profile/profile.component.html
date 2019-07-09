@@ -12,7 +12,8 @@
 <div class="my-3 p-3 bg-white rounded shadow-sm">
 
   <div class="row">
-    <div class="col-md-12">
+
+    <div class="col-md-9">
       <table class="table">
         <tbody>
           <tr>
@@ -56,6 +57,19 @@
         ปรับปรุงข้อมูล
       </button>
     </div>
+
+    <div class="col-md-3">
+      <div class="float-right mb-3">
+        <img style="width: 150px; height: 150px;" [src]="imageUrl" alt="image profile" class="img-thumbnail mb-2">
+        <br>
+        <label class="btn btn-sm btn-success" style="margin: 0px;">
+          <input type="file" #file accept="image/*" style="display: none;" (change)="fileChangeEvent($event)">
+          <span class="mdi mdi-camera"></span> เลือกไฟล์...
+        </label>
+        <!-- <span class="text-muted">{{fileName}}</span> -->
+      </div>
+    </div>
+
   </div>
 
 </div>
