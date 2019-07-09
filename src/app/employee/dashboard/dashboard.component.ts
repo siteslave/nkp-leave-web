@@ -26,50 +26,8 @@ export class DashboardComponent implements OnInit {
   items = [];
   itemsSummary = [];
   employeeId: any;
+  periodName = '';
 
-  pieOptions = {
-    chart: {
-      plotBackgroundColor: null,
-      plotBorderWidth: null,
-      plotShadow: false,
-      type: 'pie'
-    },
-    title: {
-      text: 'สรุปการลา'
-    },
-    tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-      pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-        },
-        showInLegend: true
-      }
-    },
-    series: [{
-      name: 'Brands',
-      colorByPoint: true,
-      data: [
-        {
-          name: 'ลาพักผ่อน',
-          y: 61.41,
-          sliced: true,
-          selected: true
-        }, {
-          name: 'ลาป่วย',
-          y: 11.84
-        }, {
-          name: 'ลากิจ',
-          y: 10.85
-        }
-      ]
-    }]
-  }
 
   constructor(
     private sharedService: SharedService,
@@ -78,6 +36,7 @@ export class DashboardComponent implements OnInit {
     const token = sessionStorage.getItem('token');
     const decoded = this.jwtHelper.decodeToken(token);
     this.employeeId = decoded.employee_id;
+    this.periodName = decoded.period_name;
   }
 
   async ngOnInit() {
@@ -95,7 +54,7 @@ export class DashboardComponent implements OnInit {
         text: 'สถิติการลา'
       },
       subtitle: {
-        text: 'ปีงบประมาณ 2562'
+        text: this.periodName
       },
       xAxis: {
         categories: categories,
@@ -130,6 +89,41 @@ export class DashboardComponent implements OnInit {
     Highcharts.chart('chart1', options);
   }
 
+  async createPie(data: any[]) {
+    let pieOptions = {
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+      },
+      title: {
+        text: 'สรุปการลา'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          },
+          showInLegend: true
+        }
+      },
+      series: [{
+        name: 'Brands',
+        colorByPoint: true,
+        data: data
+      }]
+    }
+
+    Highcharts.chart('chart2', pieOptions);
+  }
+
   async getHistory() {
     try {
       const rs: any = await this.sharedService.getLeaveHisotryByEmployee(this.employeeId);
@@ -156,16 +150,32 @@ export class DashboardComponent implements OnInit {
         _data[1].name = 'คงเหลือ';
         _data[1].data = [];
 
+        let _pieData = []; // {name: 'xxxx', y: 10}
+
+        let idx = 0;
+
         this.itemsSummary.forEach(v => {
           _categories.push(v.leave_type_name);
           _data[0].data.push(+v.current_leave);
           _data[1].data.push(+v.remain_days);
+
+          let obj: any = {};
+          obj.name = v.leave_type_name;
+          obj.y = +v.current_leave;
+          if (idx === 0) {
+            obj.sliced = true;
+            obj.selected = true;
+          }
+          _pieData.push(obj);
+
+          idx++;
         });
 
-        console.log(_categories);
-        console.log(_data);
+        // console.log(_categories);
+        // console.log(_data);
 
         this.createColumn(_categories, _data);
+        this.createPie(_pieData);
       }
     } catch (e) {
       console.log(e);
