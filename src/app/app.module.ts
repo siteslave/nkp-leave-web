@@ -1,3 +1,4 @@
+import { LineModule } from './line/line.module';
 import * as $ from 'jquery';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -39,7 +40,8 @@ registerLocaleData(localeTh, 'th');
     AppRoutingModule,
     NgbModule,
     SharedModule,
-    LoginModule
+    LoginModule,
+    LineModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'th' },
