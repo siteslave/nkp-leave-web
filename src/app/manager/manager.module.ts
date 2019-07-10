@@ -10,6 +10,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ManagerService } from './manager.service';
 import { EmployeeComponent } from './employee/employee.component';
+import { NgxTypeaheadModule } from 'ngx-typeahead';
 
 @NgModule({
   declarations: [LayoutComponent, MainComponent, ProfileComponent, EmployeeComponent],
@@ -18,7 +19,8 @@ import { EmployeeComponent } from './employee/employee.component';
     ManagerRoutingModule,
     SharedModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    NgxTypeaheadModule
   ],
   providers: [ManagerService]
 })

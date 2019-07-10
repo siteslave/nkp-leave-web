@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { AlertService } from '../../shared/alert.service';
 import { ManagerService } from '../manager.service';
 import { ModalLeaveHistoryComponent } from 'src/app/shared/modal-leave-history/modal-leave-history.component';
@@ -11,6 +11,10 @@ import * as mqttClient from '../../../../mqtt/mqtt.min.js';
 })
 export class MainComponent implements OnInit {
   @ViewChild('mdlHistory') private mdlHistory: ModalLeaveHistoryComponent;
+
+  url = '';
+  query = '';
+  params: any = {};
 
   draftItems: any = [];
   allItems: any = [];
@@ -32,7 +36,15 @@ export class MainComponent implements OnInit {
   ];
   status: any;
   mqttClient: MqttClient;
-  constructor(private managerService: ManagerService, private alertService: AlertService) {
+
+  constructor(
+    private managerService: ManagerService,
+    private alertService: AlertService,
+    @Inject('API_URL') private apiUrl: any
+  ) {
+    const token = sessionStorage.getItem('token');
+    this.params.token = token;
+    this.url = `${this.apiUrl}/services/manager/search-employee`;
   }
 
   async ngOnInit() {
@@ -76,6 +88,11 @@ export class MainComponent implements OnInit {
         await this.getDraftLeaves();
       }
     });
+  }
+
+  handleResultSelected(result: any) {
+    console.log(result);
+    this.query = `${result.first_name} ${result.last_name}`;
   }
 
   async getDraftLeaves() {

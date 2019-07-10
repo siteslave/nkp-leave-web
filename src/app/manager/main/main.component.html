@@ -81,13 +81,31 @@
       <ng-template ngbTabTitle>รายการทั้งหมด <span class="badge badge-danger">{{ allTotal | number }}</span>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="float-right">
-          <select style="width: 200px;" name="slStatus" id="slStatus" (change)="getAllLeaves()" [(ngModel)]="status"
-            class="form-control">
-            <option selected value="">เลือกสถานะ (ทั้งหมด)</option>
-            <option [value]="item.value" *ngFor="let item of leaveStatus">{{item.name}}</option>
-          </select>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="search-results">
+              <input placeholder="ระบุคำค้นหา..." class="form-control" [(ngModel)]="query" [value]="search" ngxTypeahead
+                [taUrl]="url" [taParams]="params" taApi="http" (taSelected)="handleResultSelected($event)"
+                [taItemTpl]="itemTpl">
+
+              <ng-template #itemTpl let-result>
+                <span>
+                  {{ result.result.first_name }} {{ result.result.last_name }} - {{ result.result.position_name }}
+                </span>
+              </ng-template>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="float-right">
+              <select style="width: 200px;" name="slStatus" id="slStatus" (change)="getAllLeaves()" [(ngModel)]="status"
+                class="form-control">
+                <option selected value="">เลือกสถานะ (ทั้งหมด)</option>
+                <option [value]="item.value" *ngFor="let item of leaveStatus">{{item.name}}</option>
+              </select>
+            </div>
+          </div>
         </div>
+
         <table class="table table-hover">
           <thead>
             <tr>
