@@ -17,9 +17,14 @@
     </button>
   </div>
   <div class="col-md-6 col-sm-6">
-    <button class="btn btn-success float-right" (click)="exportExcel()">
-      ส่งออก Excel
-    </button>
+    <div class="btn-group float-right">
+      <button class="btn btn-secondary" (click)="exportPdf()">
+        ส่งออก PDF
+      </button>
+      <button class="btn btn-success" (click)="exportExcel()">
+        ส่งออก Excel
+      </button>
+    </div>
   </div>
 </div>
 

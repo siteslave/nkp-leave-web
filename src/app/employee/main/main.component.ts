@@ -94,4 +94,11 @@ export class MainComponent implements OnInit {
 
     window.open(url, '_blank');
   }
+
+  exportPdf() {
+    const token = sessionStorage.getItem('token');
+    const url = `${this.apiUrl}/services/employees/pdf?token=${token}`;
+
+    window.open(url, '_blank');
+  }
 }
