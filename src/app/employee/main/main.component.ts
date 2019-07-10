@@ -87,4 +87,11 @@ export class MainComponent implements OnInit {
     const url = `${this.apiUrl}/leaves/pdf/${item.leave_id}?token=${token}`;
     window.open(url, '_blank');
   }
+
+  exportExcel() {
+    const token = sessionStorage.getItem('token');
+    const url = `${this.apiUrl}/services/employees/export?token=${token}`;
+
+    window.open(url, '_blank');
+  }
 }

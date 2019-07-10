@@ -143,3 +143,18 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+button.ta-item {
+  width: 450px;
+}
+
+.ta-item.list-group-item {
+  text-align: left;
+  color: black;
+}
+
+.ta-item.list-group-item.active {
+  text-align: left;
+  color: white;
+  font-weight: bold;
+}
