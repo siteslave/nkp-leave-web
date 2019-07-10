@@ -29,6 +29,8 @@ export class MainComponent implements OnInit {
   draftPageSizeItems: any = [10, 20, 30, 40, 50, 100];
   pageSize = 20;
 
+  employeeId: any = '';
+
   leaveStatus = [
     { name: 'รออนุมัติ', value: 'DRAFT' },
     { name: 'อนุมัติ', value: 'APPROVED' },
@@ -92,7 +94,19 @@ export class MainComponent implements OnInit {
 
   handleResultSelected(result: any) {
     console.log(result);
-    this.query = `${result.first_name} ${result.last_name}`;
+    if (result) {
+      this.employeeId = result.employee_id;
+      this.query = `${result.first_name} ${result.last_name}`;
+      this.getAllLeaves();
+    }
+  }
+
+  refresh() {
+    this.query = '';
+    this.status = '';
+    this.employeeId = '';
+
+    this.getAllLeaves();
   }
 
   async getDraftLeaves() {
@@ -110,7 +124,7 @@ export class MainComponent implements OnInit {
 
   async getAllLeaves() {
     try {
-      const rs: any = await this.managerService.getLeavesAll(this.pageSize, this.allOffset, this.status);
+      const rs: any = await this.managerService.getLeavesAll(this.pageSize, this.allOffset, this.status, this.employeeId);
       if (rs.ok) {
         this.allItems = rs.rows;
         this.allTotal = rs.total;

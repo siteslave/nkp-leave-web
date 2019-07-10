@@ -33,8 +33,8 @@ export class ManagerService {
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 
-  getLeavesAll(limit: number, offset: number, status: any = '') {
-    const _url = `${this.apiUrl}/services/manager/leaves?limit=${limit}&offset=${offset}&status=${status}`;
+  getLeavesAll(limit: number, offset: number, status: any = '', employeeId: any = '') {
+    const _url = `${this.apiUrl}/services/manager/leaves?limit=${limit}&offset=${offset}&status=${status}&employeeId=${employeeId}`;
     return this.httpClient.get(_url, this.httpOptions).toPromise();
   }
 

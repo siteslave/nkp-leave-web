@@ -81,18 +81,28 @@
       <ng-template ngbTabTitle>รายการทั้งหมด <span class="badge badge-danger">{{ allTotal | number }}</span>
       </ng-template>
       <ng-template ngbTabContent>
-        <div class="row">
+        <div class="row mt-2 mb-2">
           <div class="col-md-6">
-            <div class="search-results">
-              <input placeholder="ระบุคำค้นหา..." class="form-control" [(ngModel)]="query" [value]="search" ngxTypeahead
-                [taUrl]="url" [taParams]="params" taApi="http" (taSelected)="handleResultSelected($event)"
-                [taItemTpl]="itemTpl">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="search-results">
+                  <input placeholder="ระบุคำค้นหา..." class="form-control" [(ngModel)]="query" [value]="search"
+                    ngxTypeahead [taUrl]="url" [taParams]="params" taApi="http"
+                    (taSelected)="handleResultSelected($event)" [taItemTpl]="itemTpl">
 
-              <ng-template #itemTpl let-result>
-                <span>
-                  {{ result.result.first_name }} {{ result.result.last_name }} - {{ result.result.position_name }}
-                </span>
-              </ng-template>
+                  <ng-template #itemTpl let-result>
+                    <span>
+                      {{ result.result.first_name }} {{ result.result.last_name }} - {{ result.result.position_name }}
+                    </span>
+                  </ng-template>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary" (click)="refresh()">
+                  <i class="mdi mdi-refresh"></i> แสดงทั้งหมด
+                </button>
+              </div>
             </div>
           </div>
           <div class="col-md-6">
