@@ -11,6 +11,8 @@ import { EmployeeTypeComponent } from './employee-type/employee-type.component';
 import { FormsModule } from '@angular/forms';
 import { EmployeeComponent } from './employee/employee.component';
 import { AdminModalsModule } from './modals/admin-modals.module';
+import { InitLeaveComponent } from './init-leave/init-leave.component';
+import { LeaveSettingComponent } from './leave-setting/leave-setting.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { AdminModalsModule } from './modals/admin-modals.module';
     DepartmentComponent,
     UsersComponent,
     EmployeeTypeComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    InitLeaveComponent,
+    LeaveSettingComponent
   ],
   imports: [
     CommonModule,
