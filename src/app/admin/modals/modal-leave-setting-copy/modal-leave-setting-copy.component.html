@@ -1,0 +1,28 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">สำเนาข้อมูลการตั้้งค่าการลา</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+      <label for="oldPeriodId">ปีงบประมาณตั้งต้น</label>
+      <select class="custom-select" name="oldPeriodId" id="oldPeriodId" [(ngModel)]="oldPeriodId">
+        <option selected>เลือก...</option>
+        <option [value]="item.period_id" *ngFor="let item of periods">{{item.period_name}}</option>
+      </select>
+
+      <label for="nextPeriodId">ปีงบประมาณใหม่</label>
+      <select class="custom-select" name="nextPeriodId" id="nextPeriodId" [(ngModel)]="nextPeriodId">
+        <option selected>เลือก...</option>
+        <option [value]="item.period_id" *ngFor="let item of periods">{{item.period_name}}</option>
+      </select>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="doSave()">สร้างข้อมูลใหม่</button>
+  </div>
+</ng-template>

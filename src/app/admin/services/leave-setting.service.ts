@@ -44,4 +44,26 @@ export class LeaveSettingService {
       .toPromise();
   }
 
+  saveCopySetting(oldPeriodId: number, nextPeriodId: number) {
+    const _url = `${this.apiUrl}/leave-settings/copy-leave-settings`;
+    return this.httpClient.post(_url,
+      {
+        oldPeriodId: oldPeriodId,
+        nextPeriodId: nextPeriodId
+      },
+      this.httpOptions)
+      .toPromise();
+  }
+
+  initialLeave(nextPeriodId: any, oldPeriodId: any) {
+    const _url = `${this.apiUrl}/leave-settings/initial-leave`;
+    return this.httpClient.post(_url,
+      {
+        nextPeriodId: nextPeriodId,
+        oldPeriodId: oldPeriodId
+      },
+      this.httpOptions)
+      .toPromise();
+  }
+
 }

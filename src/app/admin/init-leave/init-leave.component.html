@@ -11,13 +11,30 @@
 
 <div class="my-3 p-3 bg-white rounded shadow-sm">
   <div class="row">
-    <div class="col-md-8">
-      <span class="text-danger">ปีงบประมาณปัจจุบัน : {{currentPeriodName}}</span>
+    <div class="col-md-3">
+      ปีงบประมาณปัจจุบัน : <span class="text-danger">{{currentPeriodName}}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <!-- <span class="text-danger">ปีงบประมาณปัจจุบัน : {{currentPeriodName}}</span> -->
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <label class="input-group-text" for="inputGroupSelect01">เลือกปีงบประมาณ</label>
+          <label class="input-group-text" for="inputGroupSelect01">ปีงบประมาณปัจจุบัน (ตั้งต้น)</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="periodId">
+        <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="oldPeriodId">
+          <option selected>เลือก...</option>
+          <option [value]="item.period_id" *ngFor="let item of periods">{{item.period_name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <!-- <span class="text-danger">ปีงบประมาณปัจจุบัน : {{currentPeriodName}}</span> -->
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <label class="input-group-text" for="inputGroupSelect01">ปีงบประมาณใหม่</label>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" [(ngModel)]="nextPeriodId">
           <option selected>เลือก...</option>
           <option [value]="item.period_id" *ngFor="let item of periods">{{item.period_name}}</option>
         </select>

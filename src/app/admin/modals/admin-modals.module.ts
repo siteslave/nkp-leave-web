@@ -6,13 +6,15 @@ import { ModalNewEmployeeComponent } from './modal-new-employee/modal-new-employ
 import { ModalNewEmployeeTypeComponent } from './modal-new-employee-type/modal-new-employee-type.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ModalLeaveSettingCopyComponent } from './modal-leave-setting-copy/modal-leave-setting-copy.component';
 
 @NgModule({
   declarations: [
     ModalNewDepartmentComponent,
     ModalNewUserComponent,
     ModalNewEmployeeComponent,
-    ModalNewEmployeeTypeComponent
+    ModalNewEmployeeTypeComponent,
+    ModalLeaveSettingCopyComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ModalNewDepartmentComponent,
     ModalNewUserComponent,
     ModalNewEmployeeComponent,
-    ModalNewEmployeeTypeComponent
+    ModalNewEmployeeTypeComponent,
+    ModalLeaveSettingCopyComponent
   ]
 })
 export class AdminModalsModule { }

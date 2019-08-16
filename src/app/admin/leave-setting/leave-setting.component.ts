@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EmployeeTypeService } from '../services/employee-type.service';
 import { AlertService } from 'src/app/shared/alert.service';
 import { SharedService } from 'src/app/shared/services/shared.service';
 import * as _ from 'lodash';
 import { LeaveSettingService } from '../services/leave-setting.service';
+import { ModalLeaveSettingCopyComponent } from '../modals/modal-leave-setting-copy/modal-leave-setting-copy.component';
 @Component({
   selector: 'app-leave-setting',
   templateUrl: './leave-setting.component.html',
   styles: []
 })
 export class LeaveSettingComponent implements OnInit {
+
+  @ViewChild('mdlCopy') mdlCopy: ModalLeaveSettingCopyComponent;
 
   constructor(
     private employeeTypeService: EmployeeTypeService,
@@ -172,5 +175,9 @@ export class LeaveSettingComponent implements OnInit {
     } catch (error) {
       this.alertService.error('เกิดข้อผิดพลาด')
     }
+  }
+
+  openCopy() {
+    this.mdlCopy.open();
   }
 }

@@ -9,8 +9,11 @@
 
 </div>
 
-<div class="my-3 p-3 bg-white rounded shadow-sm">
+<button class="btn btn-danger" (click)="openCopy()">
+  สำเนาข้อมูลไปปีงบใหม่
+</button>
 
+<div class="my-3 p-3 bg-white rounded shadow-sm">
   <div class="row">
     <div class="col-md-4">
 
@@ -31,29 +34,6 @@
           </option>
         </select>
       </form>
-
-      <!-- 
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th colspan="2">ประเภทการลา</th>
-          </tr>
-          <tr>
-            <th>ประเภท</th>
-            <th style="width: 80px;">#</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngIf="!employeeTypes.length">
-            <td colspan="2">ไม่พบรายการ</td>
-          </tr>
-          <tr *ngFor="let item of employeeTypes">
-            <td>{{item.employee_type_name}}</td>
-            <td><button class="btn btn-secondary" (click)="getSetting(item)">แก้ไข</button></td>
-          </tr>
-        </tbody>
-
-      </table> -->
     </div>
     <div class="col-md-8">
       <table class="table table-hover">
@@ -101,3 +81,5 @@
     </div>
   </div>
 </div>
+
+<app-modal-leave-setting-copy #mdlCopy></app-modal-leave-setting-copy>

@@ -11,7 +11,8 @@ import * as _ from 'lodash';
 })
 export class InitLeaveComponent implements OnInit {
   periods: any = [];
-  periodId: any;
+  oldPeriodId: any;
+  nextPeriodId: any;
   currentPeriodId: any;
   currentPeriodName: any;
 
@@ -33,7 +34,6 @@ export class InitLeaveComponent implements OnInit {
       const rs: any = await this.sharedService.getPeriods();
       if (rs.ok) {
         this.periods = rs.rows;
-        this.periodId = this.currentPeriodId;
       } else {
         console.log(rs.error);
         this.alertService.error();
@@ -44,11 +44,19 @@ export class InitLeaveComponent implements OnInit {
     }
   }
 
-  doProcess() {
-    if (this.periodId === this.currentPeriodId) {
+  async doProcess() {
+    if (this.nextPeriodId === this.currentPeriodId) {
       this.alertService.error('กรุณาเลือกปีงบประมาณใหม่');
     } else {
-
+      const confirm = await this.alertService.confirm('ต้องการประมวลผลข้อมูลใช่หรือไม่?');
+      if (confirm) {
+        const rs: any = await this.leaveSetting.initialLeave(this.nextPeriodId, this.oldPeriodId);
+        if (rs.ok) {
+          this.alertService.success();
+        } else {
+          this.alertService.error();
+        }
+      }
     }
   }
 }
